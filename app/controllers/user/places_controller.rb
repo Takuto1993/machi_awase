@@ -1,0 +1,30 @@
+class User::PlacesController < ApplicationController
+  def new
+    @place = Place.new
+  end
+
+  def create
+    @place = Place.new(place_params)
+    @place.user_id = current_user.id
+    @place.save
+      redirect_to places_path(@place.id)
+  end
+
+  def index
+    @places = Place.all
+  end
+
+  def show
+    @place = Place.find(params[:id])
+  end
+
+  def edit
+    @place = Place.find(params[:id])
+  end
+
+  private
+
+  def place_params
+    params.require(:place).permit(:subject, :body, :address, :latitude, :lingitube, :spot, :place_at)
+  end
+end
