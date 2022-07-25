@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    get 'places/index'
+    get 'places/show'
+    get 'places/edit'
+  end
+  namespace :admin do
+    resources :places, only: [:index, :show, :edit, :update, :destroy]
+  end
   root 'user/homes#top'
   get '/admin' => 'admin/homes#top'
 
