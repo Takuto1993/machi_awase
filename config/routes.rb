@@ -1,17 +1,25 @@
 Rails.application.routes.draw do
-  namespace :admin do
-    get 'places/index'
-    get 'places/show'
-    get 'places/edit'
-  end
-  namespace :admin do
-    resources :places, only: [:index, :show, :edit, :update, :destroy]
+  
+  namespace :user do
+    get 'users/show'
+    get 'users/edit'
   end
   root 'user/homes#top'
+  
   get '/admin' => 'admin/homes#top'
+  
+  #ゲストログイン用
+  devise_scope :user do
+    post 'user/guest_sign_in', to: 'user/sessions#guest_sign_in'
+  end
 
   scope module: :user do
     resources :places, only: [:new, :create, :index, :show, :edit, :update, :destroy]
+    resources :users, only: [:show, :edit, :update]
+  end
+  
+  namespace :admin do
+    resources :places, only: [:index, :show, :edit, :update, :destroy]
   end
 
   # 顧客用

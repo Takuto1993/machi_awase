@@ -7,7 +7,7 @@ class User::PlacesController < ApplicationController
     @place = Place.new(place_params)
     @place.user_id = current_user.id
     @place.save
-      redirect_to places_path(@place.id)
+      redirect_to place_path(@place.id)
   end
 
   def index

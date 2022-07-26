@@ -1,0 +1,35 @@
+<p id="notice"></p>
+<div class="container">
+ <div class="row">
+  <div class ="mx-auto">
+    <h3>マイページ
+    </h3>
+    <%= link_to "新規投稿", "/places/new" %>
+
+      <table class='table table-hover table-inverse'>
+        <thead>
+          <tr>
+            <th></th>
+            <th></th>
+            <th colspan="2"></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @places.each do |place| %>
+          <tr>
+            <td>
+              <%= place.user_name %>
+            </td>
+            <td>
+              <%= link_to place_path(place.id) do %>
+                <%= place.subject %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+  </div>
+ </div>
+</div>
+

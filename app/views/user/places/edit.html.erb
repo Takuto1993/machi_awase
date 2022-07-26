@@ -15,5 +15,5 @@
   <% end %>
 
   <% if @place.user == current_user %>
-   <%= link_to "削除", admin_place_path(@place), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+   <%= link_to "削除", place_path(@place), method: :delete, "data-confirm" => "本当に削除しますか？" %>
   <% end %>
