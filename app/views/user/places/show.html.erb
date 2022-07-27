@@ -2,7 +2,7 @@
 <%= link_to "編集", edit_place_path(@place.id) %>
 <div>
   <p>件名:<%= @place.subject %></p>
-  <p>投稿ユーザー:<%= @place.user_name %></p>
+  <p>投稿ユーザー:<%= @place.user.name %></p>
   <p>本文</p>
   <%= @place.body %>
   <p>待ち合わせ場所:<%= @place.address %></p>

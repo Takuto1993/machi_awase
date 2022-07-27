@@ -9,9 +9,12 @@ class User < ApplicationRecord
          has_many :join_places, dependent: :destroy
          has_many :nice_copons, dependent: :destroy
 
+         #ゲストユーザーログイン時に仮で作成されるeメールとユーザー
          def self.guest
-             find_or_create_by!(email: 'guest@example.com') do |user|
+             find_or_create_by!(email: 'guest@example.com', name: 'gest') do |user|
                  user.password = SecureRandom.urlsafe_base64
              end
          end
+         
+         
 end

@@ -10,27 +10,43 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-  <header>
-    <% if user_signed_in? %>
-      <li>
-        <%= link_to "待ち合わせ一覧", places_path %>
-      </li>
-      <li>
-        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-      </li>
-    <% else %>
-      <li>
-        <%= link_to "新規登録", new_user_registration_path %>
-      </li>
-      <li>
-        <%= link_to "ログイン", new_user_session_path %>
-      </li>
-      <li>
-        <%= link_to "ゲストログイン", user_guest_sign_in_path, method: :post %>
-      </li>
-    <% end %>
-  </header>
+  <body class="d-flex flex-column vh-100">
+    <header class ="shadow-sm">
+      <nav class = "navbar navbar-expand-lg navbar-dark bg-dark">
+       <div class= "container">
+        <a class="navbar-brand" href="/" >
+          <span>MACHIあわせ</span>
+        </a>
+        <div class="navbar-collapse collapse show" id="navbarNavDropdown" style >
+         <ul class="navbar-nav ml-auto" >
+          <% if user_signed_in? %>
+            <li>
+              <%= link_to user_path(current_user.id) do %>
+               <%= current_user.name %>さんのマイページ
+              <% end %>
+            </li>
+            <li>
+              <%= link_to "待ち合わせ一覧", places_path %>
+            </li>
+            <li>
+              <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to "新規登録", new_user_registration_path %>
+            </li>
+            <li>
+              <%= link_to "ログイン", new_user_session_path %>
+            </li>
+            <li>
+              <%= link_to "ゲストログイン", user_guest_sign_in_path, method: :post %>
+            </li>
+          <% end %>
+         </ul>
+        </div>
+       </div>
+      </nav>
+    </header>
     <%= yield %>
   </body>
 </html>

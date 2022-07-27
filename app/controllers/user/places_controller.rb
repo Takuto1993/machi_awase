@@ -21,13 +21,13 @@ class User::PlacesController < ApplicationController
   def edit
     @place = Place.find(params[:id])
   end
-  
+
   def update
     @place = Place.find(params[:id])
     @place.update(place_params)
     redirect_to place_path(@place.id)
   end
-  
+
   def destroy
     @place = Place.find(params[:id])
     @place.destroy
@@ -37,6 +37,6 @@ class User::PlacesController < ApplicationController
   private
 
   def place_params
-    params.require(:place).permit(:subject, :body, :address, :latitude, :lingitube, :spot, :place_at)
+    params.require(:place).permit(:user_name, :subject, :body, :address, :latitude, :lingitube, :spot, :place_at)
   end
 end

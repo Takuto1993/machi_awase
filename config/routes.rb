@@ -1,13 +1,14 @@
 Rails.application.routes.draw do
-  
-  namespace :user do
-    get 'users/show'
-    get 'users/edit'
-  end
+
   root 'user/homes#top'
-  
+
   get '/admin' => 'admin/homes#top'
-  
+
+  #退会画面用
+  get '/users/:id/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
+  #論理削除用のルーティング
+  patch '/users/:id/withdraw' => 'users#withdraw', as: 'withdraw'
+
   #ゲストログイン用
   devise_scope :user do
     post 'user/guest_sign_in', to: 'user/sessions#guest_sign_in'
@@ -17,7 +18,7 @@ Rails.application.routes.draw do
     resources :places, only: [:new, :create, :index, :show, :edit, :update, :destroy]
     resources :users, only: [:show, :edit, :update]
   end
-  
+
   namespace :admin do
     resources :places, only: [:index, :show, :edit, :update, :destroy]
   end
