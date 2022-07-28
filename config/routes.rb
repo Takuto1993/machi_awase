@@ -5,9 +5,9 @@ Rails.application.routes.draw do
   get '/admin' => 'admin/homes#top'
 
   #退会画面用
-  get '/users/:id/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
+  get '/users/:id/unsubscribe' => 'user/users#unsubscribe', as: 'unsubscribe'
   #論理削除用のルーティング
-  patch '/users/:id/withdraw' => 'users#withdraw', as: 'withdraw'
+  patch '/users/:id/withdraw' => 'user/users#withdraw', as: 'withdraw'
 
   #ゲストログイン用
   devise_scope :user do
@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :places, only: [:index, :show, :edit, :update, :destroy]
+    resources :users, only: [:index, :show, :edit, :update]
   end
 
   # 顧客用

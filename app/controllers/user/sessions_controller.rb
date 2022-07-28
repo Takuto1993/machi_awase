@@ -17,7 +17,7 @@ class User::SessionsController < Devise::SessionsController
   # def destroy
   #   super
   # end
-  
+
   #ゲストログイン用
   def guest_sign_in
     user = User.guest
@@ -26,12 +26,12 @@ class User::SessionsController < Devise::SessionsController
   end
 
   protected
-  
+
   def user_state
     @user = User.find_by(email: params[:user][:email])
     return if !@user
     if @user
-      if @user.valid_password?(params[:user][:password]) && (@user.is_active == false)
+      if @user.valid_password?(params[:user][:password]) && (@user.deleted == false)
         flash[:notice] = "退会済みです。再度ご登録をしてご利用ください。"
          redirect_to new_user_registration_path
       else

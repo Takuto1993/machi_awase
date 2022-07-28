@@ -15,6 +15,11 @@ class User < ApplicationRecord
                  user.password = SecureRandom.urlsafe_base64
              end
          end
-         
-         
+
+         # 退会ステータスが退会の場合ログインできないようにするコード
+         def active_for_authentication?
+           super && (is_deleted == false)
+         end
+
+
 end

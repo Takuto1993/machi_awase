@@ -1,0 +1,15 @@
+<<p id="notice"></p>
+<div class="container">
+ <div class="row">
+  <div class ="mx-auto">
+    <h3>ユーザー詳細画面</h3>
+    <div>
+      <p>ユーザーネーム:<%= @user.name %></p>
+      <p>メールアドレス:<%= @user.email %></p>
+      <%= link_to edit_admin_user_path(@user.id), class: "btn btn-primary" do %>
+       <%= "登録情報変更" %>
+      <% end %>
+    </div>
+  </div>
+ </div>
+</div>
