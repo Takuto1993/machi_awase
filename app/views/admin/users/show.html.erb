@@ -6,6 +6,7 @@
     <div>
       <p>ユーザーネーム:<%= @user.name %></p>
       <p>メールアドレス:<%= @user.email %></p>
+      <p>退会ステータス：<%= @user.is_deleted ? '退会' : '有効' %></p>
       <%= link_to edit_admin_user_path(@user.id), class: "btn btn-primary" do %>
        <%= "登録情報変更" %>
       <% end %>

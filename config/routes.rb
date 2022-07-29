@@ -14,14 +14,18 @@ Rails.application.routes.draw do
     post 'user/guest_sign_in', to: 'user/sessions#guest_sign_in'
   end
 
+  #ユーザー側
   scope module: :user do
     resources :places, only: [:new, :create, :index, :show, :edit, :update, :destroy]
     resources :users, only: [:show, :edit, :update]
   end
 
+  #管理者側
   namespace :admin do
     resources :places, only: [:index, :show, :edit, :update, :destroy]
-    resources :users, only: [:index, :show, :edit, :update]
+    resources :users, only: [:index, :show, :edit, :update] do
+      patch :withdraw
+    end
   end
 
   # 顧客用
