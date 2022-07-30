@@ -18,13 +18,13 @@
       </div>
 
       <div class="field">
-        <%= f.label :現在のパスワード %><br />
-        <%= f.password_field :current_password, autocomplete: "current-password" %>
+        <%= f.label :現在のパスワード（入力必須） %><br />
+        <%= f.password_field :password, autocomplete: "current-password" %>
       </div>
       <% #パスワードを変更した場合強制的にログアウトするバグあり %>
       <div class="field">
         <%= f.label :新しいパスワード %> <i>(変更しない場合は空欄にしてください。)</i><br />
-        <%= f.password_field :password, autocomplete: "new-password" %>
+        <%= f.password_field :current_password, autocomplete: "new-password" %>
         <% if @minimum_password_length %>
           <br />
           <em><%= @minimum_password_length %> characters minimum</em>
@@ -37,11 +37,11 @@
       </div>
 
       <% if @user.is_deleted? %>
-        <%= link_to admin_user_withdraw_path(@user.id), method: :patch do %>
+        <%= link_to admin_user_toggle_path(@user.id), method: :patch do %>
           <span class="btn btn-info">有効にする</span>
         <% end %>
       <% else %>
-        <%= link_to "退会させる", admin_user_withdraw_path(@user.id), method: :patch, "data-confirm" => "本当に退会させますか？", class: "btn btn-danger" %>
+        <%= link_to "退会させる", admin_user_toggle_path(@user.id), method: :patch, "data-confirm" => "本当に退会させますか？", class: "btn btn-danger" %>
       <% end %>
 
 

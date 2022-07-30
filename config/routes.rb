@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :places, only: [:index, :show, :edit, :update, :destroy]
     resources :users, only: [:index, :show, :edit, :update] do
-      patch :withdraw
+      patch :toggle
     end
   end
 

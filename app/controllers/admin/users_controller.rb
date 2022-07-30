@@ -17,8 +17,8 @@ class Admin::UsersController < ApplicationController
   redirect_to admin_user_path(@user.id)
   end
 
-  def withdraw
-    @user = User.find(params[:id])
+  def  toggle
+    @user = User.find(params[:user_id])
     if @user.is_deleted?
       @user.is_deleted = false
     else
