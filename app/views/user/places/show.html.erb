@@ -1,11 +1,42 @@
-<h3>待ち合わせ詳細</h3>
-<%= link_to "編集", edit_place_path(@place.id) %>
-<div>
-  <p>件名:<%= @place.subject %></p>
-  <p>投稿ユーザー:<%= @place.user.name %></p>
-  <p>本文</p>
-  <%= @place.body %>
-  <p>待ち合わせ場所:<%= @place.address %></p>
-  <p>待ち合わせ目印:<%= @place.spot %></p>
-  <p>待ち合わせ日時:<%= @place.place_at %></p>
-</div>
+<p id="notice"></p>
+ <div class="container px-5 px-sm-0">
+  <div class="row">
+   <div class='col-md-6'>
+    <h4>待ち合わせ詳細</h4>
+    <%= link_to "編集", edit_place_path(@place.id) %>
+    <div>
+      <p>件名:<%= @place.subject %></p>
+      <p>投稿ユーザー:<%= @place.user.name %></p>
+      <p>本文</p>
+      <%= @place.body %>
+      <p>待ち合わせ場所:<%= @place.address %></p>
+      <p>待ち合わせ目印:<%= @place.spot %></p>
+      <p>待ち合わせ日時:<%= @place.place_at %></p>
+    </div>
+   </div>
+
+     <p id="notice"></p>
+     <div class="col-md-4">
+        <h4>コメント投稿フォーム</h4>
+        <div>
+          <%= form_with model: [@place, @place_comment], url: places_path do |f| %>
+           <%= f.text_area :comment, rows: '5', placeholder: "コメントはこちら" %>
+           <%= f.submit "送信" %>
+          <% end %>
+        </div>
+
+        <div>
+          <h4>コメント一覧</h4>
+          <p>コメント件数:<%= @place.place_comments.count %></p>
+          <% @place.place_comments.each do |place_comment| %>
+           <%= place_comment.user.name %>
+           <%= place_comment.created_at.strftime('%Y/%m/%d') %><%= place_comment.comment %>
+           <% if place_comment.user == current_user %>
+            <%= link_to "削除", place_place_comment_path(place_comment.place, place_comment), method: :deleted, "date-confirm"  => "コメントを削除しますか？" %>
+           <% end %>
+          <% end %>
+        </div>
+     </div>
+   </div>
+  </div>
+ </div>

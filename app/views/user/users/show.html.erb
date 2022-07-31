@@ -20,12 +20,12 @@
         <% @places.each do |place| %>
           <tr>
             <td>
-              <%= place.user.name %>
-            </td>
-            <td>
               <%= link_to place_path(place.id) do %>
                 <%= place.subject %>
               <% end %>
+            </td>
+            <td>
+              <%= "#{place.place_comments.count} コメント" %>
             </td>
           </tr>
         <% end %>

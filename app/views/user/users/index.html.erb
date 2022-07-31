@@ -1,0 +1,34 @@
+<p id="notice"></p>
+<div class="container">
+ <div class="row">
+  <div class ="mx-auto">
+    <h3>ユーザー一覧</h3>
+
+      <table class='table table-hover table-inverse'>
+        <thead>
+          <tr>
+            <th></th>
+            <th>ユーザーネーム</th>
+            <th></th>
+            <th></th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td></td>
+            <td>
+              <%= link_to user_path(user.id) do %>
+                <%= user.name %>
+              <% end %>
+            </td>
+            <td></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+  </div>
+ </div>
+</div>
+

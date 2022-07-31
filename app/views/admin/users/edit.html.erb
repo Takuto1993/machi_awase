@@ -37,11 +37,11 @@
       </div>
 
       <% if @user.is_deleted? %>
-        <%= link_to admin_user_toggle_path(@user.id), method: :patch do %>
+        <%= link_to admin_user_toggle_path(@user.id), method: :patch, "data-confirm" => "有効にさせますか？" do %>
           <span class="btn btn-info">有効にする</span>
         <% end %>
       <% else %>
-        <%= link_to "退会させる", admin_user_toggle_path(@user.id), method: :patch, "data-confirm" => "本当に退会させますか？", class: "btn btn-danger" %>
+        <%= link_to "退会させる", admin_user_toggle_path(@user.id), method: :patch, "data-confirm" => "退会させますか？", class: "btn btn-danger" %>
       <% end %>
 
 
