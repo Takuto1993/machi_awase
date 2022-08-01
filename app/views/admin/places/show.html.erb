@@ -1,11 +1,59 @@
-<h3>待ち合わせ詳細</h3>
-<%= link_to "編集", edit_admin_place_path(@place.id) %>
-<div>
-  <p>件名:<%= @place.subject %></p>
-  <p>投稿ユーザー:<%= @place.user_name %></p>
-  <p>本文</p>
-  <%= @place.body %>
-  <p>待ち合わせ場所:<%= @place.address %></p>
-  <p>待ち合わせ目印:<%= @place.spot %></p>
-  <p>待ち合わせ日時:<%= @place.place_at %></p>
-</div>
+<p id="notice"></p>
+ <div class="container">
+  <div class="row">
+   <div class ="mx-auto">
+    <div>
+     <h4>待ち合わせ詳細</h4>
+     <%= link_to "編集", edit_admin_place_path(@place.id) %>
+     <div>
+       <p>件名:<%= @place.subject %></p>
+       <p>投稿ユーザー:<%= @place.user.name %></p>
+       <p>本文</p>
+       <%= @place.body %>
+       <p>待ち合わせ場所:<%= @place.address %></p>
+       <p>待ち合わせ目印:<%= @place.spot %></p>
+       <p>待ち合わせ日時:<%= @place.place_at %></p>
+     </div>
+    </div>
+
+       <div>
+         <h4>コメント一覧</h4>
+         <p>コメント件数:<%= @place.place_comments.count %></p>
+         <table class='table table-hover table-inverse'>
+          <% @place.place_comments.each do |place_comment| %>
+          <thead>
+            <tr>
+              <th><%= place_comment.id %></th>
+              <th><%= place_comment.user.name %></th>
+              <th><%= place_comment.created_at.strftime('%Y/%m/%d/ %H:%M:%S') %></th>
+              <th colspan="3"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+               
+              </td>
+              <td>
+               <%= place_comment.comment %>
+              </td>
+              <td>
+                <% if place_comment.user == current_admin %>
+                 <%= link_to "削除", place_place_comment_path(place_comment.place, place_comment), method: :deleted, "date-confirm"  => "コメントを削除しますか？" %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+         </table>
+         <h4>コメント投稿フォーム</h4>
+         <div>
+           <%= form_with model: [@place, @place_comment] do |f| %>
+            <%= f.text_area :comment, rows: '5', placeholder: "コメントはこちら" %>
+            <%= f.submit "送信" %>
+           <% end %>
+         </div>
+       </div>
+   </div>
+  </div>
+ </div>

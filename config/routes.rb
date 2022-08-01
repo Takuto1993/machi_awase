@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   #ユーザー側
   scope module: :user do
     resources :places, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
-      resources :plece_comments, only: [:create, :destroy]
+      resources :place_comments, only: [:create, :destroy]
     end
     resources :users, only: [:index, :show, :edit, :update]
   end
