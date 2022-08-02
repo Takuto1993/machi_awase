@@ -13,6 +13,22 @@
        <p>待ち合わせ場所:<%= @place.address %></p>
        <p>待ち合わせ目印:<%= @place.spot %></p>
        <p>待ち合わせ日時:<%= @place.place_at %></p>
+       
+       <% #ログインユーザーのみ参加、取り消しできるようにする　placeモデル参照 %>
+       <% if @place.join_placed_by?(current_user) %>
+        <%= link_to "★参加を取り消す", place_join_places_path(@place), method: :delete %>
+        <p>★参加数<%= @place.join_places.count %>人</p>
+        <% @place.join_places.each do |join_place| %>
+         <%= link_to join_place.user.name, user_path(join_place.user.id) %>
+        <% end %>
+        <% else %>
+         <%= link_to "★参加する", place_join_places_path(@place), method: :post %>
+        <p>★参加数<%= @place.join_places.count %>人</p>
+        <% @place.join_places.each do |join_place| %>
+         <%= link_to join_place.user.name, user_path(join_place.user.id) %>
+        <% end %>
+       <% end %>
+       
      </div>
     </div>
 
@@ -32,14 +48,14 @@
           <tbody>
             <tr>
               <td>
-               
+
               </td>
               <td>
                <%= place_comment.comment %>
               </td>
               <td>
                 <% if place_comment.user == current_user %>
-                 <%= link_to "削除", place_place_comment_path(place_comment.place, place_comment), method: :deleted, "date-confirm"  => "コメントを削除しますか？" %>
+                 <%= link_to "削除", place_place_comment_path(place_comment.place, place_comment), method: :delete, "data-confirm"  => "コメントを削除しますか？" %>
                 <% end %>
               </td>
             </tr>

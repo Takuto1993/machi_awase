@@ -32,14 +32,14 @@
           <tbody>
             <tr>
               <td>
-               
+
               </td>
               <td>
                <%= place_comment.comment %>
               </td>
               <td>
                 <% if place_comment.user == current_admin %>
-                 <%= link_to "削除", place_place_comment_path(place_comment.place, place_comment), method: :deleted, "date-confirm"  => "コメントを削除しますか？" %>
+                 <%= link_to "削除", place_place_comment_path(place_comment.place, place_comment), method: :delete, "date-confirm"  => "コメントを削除しますか？" %>
                 <% end %>
               </td>
             </tr>
