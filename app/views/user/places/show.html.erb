@@ -7,28 +7,30 @@
      <%= link_to "編集", edit_place_path(@place.id) %>
      <div>
        <p>件名:<%= @place.subject %></p>
-       <p>投稿ユーザー:<%= @place.user.name %></p>
+       <p>投稿ユーザー:<%= link_to @place.user.name, user_path(@place.user.id) %></p>
        <p>本文</p>
        <%= @place.body %>
        <p>待ち合わせ場所:<%= @place.address %></p>
        <p>待ち合わせ目印:<%= @place.spot %></p>
        <p>待ち合わせ日時:<%= @place.place_at %></p>
-       
-       <% #ログインユーザーのみ参加、取り消しできるようにする　placeモデル参照 %>
+
+       <% #if文はログインユーザーのみ参加、取り消しできるようにする　placeモデル参照 %>
        <% if @place.join_placed_by?(current_user) %>
         <%= link_to "★参加を取り消す", place_join_places_path(@place), method: :delete %>
+        <h4>参加者</h4>
         <p>★参加数<%= @place.join_places.count %>人</p>
         <% @place.join_places.each do |join_place| %>
-         <%= link_to join_place.user.name, user_path(join_place.user.id) %>
+         <%= link_to join_place.user.name, user_path(join_place.user.id) %><%= "　,　" %>
         <% end %>
         <% else %>
          <%= link_to "★参加する", place_join_places_path(@place), method: :post %>
+        <h4>参加者</h4>
         <p>★参加数<%= @place.join_places.count %>人</p>
         <% @place.join_places.each do |join_place| %>
          <%= link_to join_place.user.name, user_path(join_place.user.id) %>
         <% end %>
        <% end %>
-       
+
      </div>
     </div>
 
@@ -40,7 +42,7 @@
           <thead>
             <tr>
               <th><%= place_comment.id %></th>
-              <th><%= place_comment.user.name %></th>
+              <th><%= link_to place_comment.user.name, user_path(place_comment.user.id) %></th>
               <th><%= place_comment.created_at.strftime('%Y/%m/%d/ %H:%M:%S') %></th>
               <th colspan="3"></th>
             </tr>
@@ -62,7 +64,7 @@
           <% end %>
           </tbody>
          </table>
-         <h4>コメント投稿フォーム</h4>
+         <h4>コメント投稿</h4>
          <div>
            <%= form_with model: [@place, @place_comment] do |f| %>
             <%= f.text_area :comment, rows: '5', placeholder: "コメントはこちら" %>
