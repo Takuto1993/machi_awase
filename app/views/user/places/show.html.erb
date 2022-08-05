@@ -4,7 +4,9 @@
    <div class ="mx-auto">
     <div>
      <h4>待ち合わせ詳細</h4>
-     <%= link_to "編集", edit_place_path(@place.id) %>
+     <% if @place.user == current_user %>
+      <%= link_to "編集", edit_place_path(@place.id) %>
+     <% end %>
      <div>
        <p>件名:<%= @place.subject %></p>
        <p>投稿ユーザー:<%= link_to @place.user.name, user_path(@place.user.id) %></p>

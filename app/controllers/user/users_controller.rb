@@ -1,9 +1,18 @@
 class User::UsersController < ApplicationController
-  
+
   def index
-    @users = User.all
+    #入力が無いときすべて表示
+    if params[:search] == nil
+      @users = User.all
+    #入力に空白がある時はすべて表示
+    elsif params[:search] == '　'
+      @users = User.sll
+    #入力がある時に検索する文字に登録したカラムとヒットした場合
+    else
+      @users = User.where("name LIKE?", '%' + params[:search] + '%')
+    end
   end
-  
+
   def show
     @user = User.find(params[:id])
     @places = @user.places

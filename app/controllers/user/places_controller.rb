@@ -11,7 +11,16 @@ class User::PlacesController < ApplicationController
   end
 
   def index
-    @places = Place.all
+    #入力が無いときすべて表示
+    if params[:search] == nil
+      @places = Place.all
+    #入力に空白がある時はすべて表示
+    elsif params[:search] == '　'
+      @places = Place.all
+    #入力がある時に検索する文字に登録したカラムとヒットした場合
+    else
+      @places = Place.where("subject LIKE? OR body LIKE? OR address LIKE? OR spot LIKE?", '%' + params[:search] + '%', '%' + params[:search] + '%', '%' + params[:search] + '%', '%' + params[:search] + '%' )
+    end
   end
 
   def show

@@ -1,4 +1,8 @@
 class User::JoinPlacesController < ApplicationController
+  
+  def index
+    @join_places = current_user.join_places
+  end
 
   def create
     place = Place.find(params[:place_id])

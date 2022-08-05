@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   get '/admin' => 'admin/homes#top'
 
+  get 'search' => 'places#search'
+
   #退会画面用
   get '/users/:id/unsubscribe' => 'user/users#unsubscribe', as: 'unsubscribe'
   #論理削除用のルーティング
@@ -21,6 +23,7 @@ Rails.application.routes.draw do
       resources :place_comments, only: [:create, :destroy]
     end
     resources :users, only: [:index, :show, :edit, :update]
+    resources :join_places, only: [:index]
   end
 
   #管理者側
@@ -32,6 +35,7 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :show, :edit, :update] do
       patch :toggle
     end
+    resources :join_places, only: [:index]
   end
 
   # 顧客用

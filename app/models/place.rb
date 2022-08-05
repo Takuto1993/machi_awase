@@ -9,4 +9,5 @@ class Place < ApplicationRecord
     join_places.exists?(user_id: user.id)
   end
 
+
 end
