@@ -63,3 +63,5 @@ gem 'gmaps4rails'
 gem 'geocoder'
 
 gem "enum_help"
+
+gem 'dotenv-rails'
