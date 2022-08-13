@@ -13,7 +13,7 @@
         <p>本文</p>
         <%= @place.body %>
         <p>待ち合わせ場所:<%= @place.address %></p>
-        
+
          <% #googlemapを表示 %>
          <% if @place.latitude == nil %>
           <%= "位置情報を所得できませんでした。" %>
@@ -21,36 +21,36 @@
           <%= "位置情報を所得できませんでした。" %>
          <% else %>
           <div id="map"></div>
- 
+
           <style>
            #map{
              height: 400px;
            }
           </style>
- 
+
           <script type="text/javascript">
            function initMap(){
- 
-            var mark = {lat: <%= @place.latitude %>, lng: <%= @place.longitude %> };
+
+            var mark = {lat: <%= @place.latitude %>, lng: <%= @place.longitude %>};
             var map = new google.maps.Map(document.getElementById('map'), {
                       zoom: 20,
                       center: mark
                       });
             var transitLayer = new google.maps.TransitLayer();
             transitLayer.setMap(map);
- 
+
             var contentString = '住所:<%= @place.address %>';
-            var infowindow = new google.mapsInfoWindow({
+            var infowindow = new google.maps.InfoWindow({
              content: contentString
             });
- 
+
             <% #MAP上の指定した場所をピンで表示 %>
             var marker = new google.maps.Marker({
-                      position:mark,
+                      position: mark,
                       map: map,
                       title: contentString
                       });
- 
+
             marker,addListener('click', function() {
              infowindow.open(map, marker);
             });
@@ -63,7 +63,7 @@
         <p>待ち合わせ目印:<%= @place.spot %></p>
         <p>待ち合わせ日時:<%= @place.place_at %></p>
 
-        <% #if文はログインユーザーのみ参加、取り消しできるようにする　placeモデル参照 %>
+        <% #if文はログインユーザーのみ参加、取り消しできるようにする placeモデル参照 %>
         <% if @place.join_placed_by?(current_user) %>
          <%= link_to "★参加を取り消す", place_join_places_path(@place), method: :delete %>
          <h4>参加者</h4>
