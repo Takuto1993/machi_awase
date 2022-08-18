@@ -15,7 +15,7 @@ class User::PlacesController < ApplicationController
     if params[:search] == nil
       @places = Place.all
     #入力に空白がある時はすべて表示
-    elsif params[:search] == '　'
+    elsif params[:search] == ' '
       @places = Place.all
     #入力がある時に検索する文字に登録したカラムとヒットした場合
     else

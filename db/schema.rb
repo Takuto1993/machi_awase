@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_02_113520) do
+ActiveRecord::Schema.define(version: 2022_08_17_125021) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -24,9 +24,27 @@ ActiveRecord::Schema.define(version: 2022_08_02_113520) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "coupons", force: :cascade do |t|
+    t.string "shop"
+    t.string "coupon_name"
+    t.datetime "from_day"
+    t.datetime "to_day"
+    t.string "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "join_places", force: :cascade do |t|
     t.integer "user_id"
     t.integer "place_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "nice_coupons", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "coupon_id"
+    t.string "nice"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -1,0 +1,20 @@
+<p id="notice"></p>
+ <div class="container">
+  <div class="row">
+   <div class ="mx-auto">
+     <h3>クーポン新規作成</h3>
+     <%= form_with model: @coupon, url: '/admin/coupons' do |f| %>
+      <h4>使えるお店</h4>
+       <%= f.text_field :shop %>
+      <h4>クーポン名</h4>
+       <%= f.text_field :coupon_name %>
+      <h4>使用期限</h4>
+       <%= f.date_select :from_day, use_month_numbers: true, class: 'form-control date-picker' %><%= "から" %><br>
+       <%= f.date_select :to_day, use_month_numbers: true, class: 'form-control date-picker' %><%= "まで" %>
+      <h4>内容</h4>
+       <%= f.text_area :content, size: "40x10" %>
+      <%= f.submit '投稿' %>
+    <% end %>
+   </div>
+  </div>
+ </div>

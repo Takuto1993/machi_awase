@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+    get 'coupons/index'
+    get 'coupons/show'
+    get 'coupons/edit'
+    get 'coupons/new'
+  end
   root 'user/homes#top'
 
   get '/admin' => 'admin/homes#top'
@@ -36,6 +42,7 @@ Rails.application.routes.draw do
       patch :toggle
     end
     resources :join_places, only: [:index]
+    resources :coupons, only: [:index, :show, :edit, :new, :update, :destroy, :create]
   end
 
   # 顧客用

@@ -1,56 +1,22 @@
-<h3>待ち合わせ新規投稿</h3>
-
-  <%= form_with model: @place do |f| %>
-    <h4>件名</h4>
-     <%= f.text_field :subject %>
-    <h4>本文</h4>
-     <%= f.text_area :body, size: "80x10" %>
-    <h4>待ち合わせ場所</h4>
-     <%= f.text_field :address %>
-     
-     <div id="map"></div>
- 
-          <style>
-           #map{
-             height: 400px;
-           }
-          </style>
- 
-          <script type="text/javascript">
-           function initMap(){
- 
-            var mark = {lat: <%= @place.latitude %>, lng: <%= @place.longitude %> };
-            var map = new google.maps.Map(document.getElementById('map'), {
-                      zoom: 20,
-                      center: mark
-                      });
-            var transitLayer = new google.maps.TransitLayer();
-            transitLayer.setMap(map);
- 
-            var contentString = '住所:<%= @place.address %>';
-            var infowindow = new google.maps.InfoWindow({
-             content: contentString
-            });
- 
-            <% #MAP上の指定した場所をピンで表示 %>
-            var marker = new google.maps.Marker({
-                         position: mark,
-                         map: map,
-                         title: contentString
-                         });
- 
-            marker,addListener('click', function() {
-             infowindow.open(map, marker);
-            });
-           }
-          </script>
-          
-          <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY'] %>&callback=initMap">
-          </script>
-
-    <h4>待ち合わせ目印</h4>
-     <%= f.text_field :spot %>
-    <h4>待ち合わせ日時</h4>
-     <%= f.datetime_select :place_at, use_month_numbers: true, class: 'form-control' %>
-    <%= f.submit '投稿' %>
-  <% end %>
+<p id="notice"></p>
+ <div class="container">
+  <div class="row">
+   <div class ="mx-auto"> 
+    <h3>待ち合わせ新規投稿</h3>
+   
+     <%= form_with model: @place do |f| %>
+       <h4>件名</h4>
+        <%= f.text_field :subject %>
+       <h4>本文</h4>
+        <%= f.text_area :body, size: "80x10" %>
+       <h4>待ち合わせ場所</h4>
+        <%= f.text_field :address %>
+       <h4>待ち合わせ目印</h4>
+        <%= f.text_field :spot %>
+       <h4>待ち合わせ日時</h4>
+        <%= f.datetime_select :place_at, use_month_numbers: true, class: 'form-control' %>
+       <%= f.submit '投稿' %>
+     <% end %>
+   </div>
+  </div>
+ </div>

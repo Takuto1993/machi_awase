@@ -1,0 +1,2 @@
+class NiceCoupon < ApplicationRecord
+end

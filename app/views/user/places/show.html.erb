@@ -28,7 +28,7 @@
            }
           </style>
 
-          <script type="text/javascript">
+          <script>
            function initMap(){
 
             var mark = {lat: <%= @place.latitude %>, lng: <%= @place.longitude %>};
@@ -44,7 +44,7 @@
              content: contentString
             });
 
-            <% #MAP上の指定した場所をピンで表示 %>
+            <% #MAP上の指定場所をピンで表示 %>
             var marker = new google.maps.Marker({
                       position: mark,
                       map: map,
@@ -58,6 +58,15 @@
           </script>
           <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY'] %>&callback=initMap">
           </script>
+         <% end %>
+         
+         <% if @place.latitude == nil %>
+         <% else %>
+          <p>緯度:<%= @place.latitude %></p>
+         <% end %>
+         <% if @place.longitude == nil %>
+         <% else %>
+          <p>経度:<%= @place.longitude %></p>
          <% end %>
 
         <p>待ち合わせ目印:<%= @place.spot %></p>
