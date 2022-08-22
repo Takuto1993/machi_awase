@@ -1,11 +1,4 @@
 Rails.application.routes.draw do
-
-  namespace :admin do
-    get 'coupons/index'
-    get 'coupons/show'
-    get 'coupons/edit'
-    get 'coupons/new'
-  end
   root 'user/homes#top'
 
   get '/admin' => 'admin/homes#top'
@@ -30,6 +23,7 @@ Rails.application.routes.draw do
     end
     resources :users, only: [:index, :show, :edit, :update]
     resources :join_places, only: [:index]
+    resources :coupons, only: [:index, :show]
   end
 
   #管理者側
@@ -54,7 +48,8 @@ Rails.application.routes.draw do
 
   # 管理者用
   # URL /admin/sign_in ...
-  devise_for :admin, skip: [:registrations, :passwords] , controllers: {
+  devise_for :admin, skip: [:passwords] , controllers: {
+    registrations: "admin/registrations",
     sessions: "admin/sessions"
   }
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

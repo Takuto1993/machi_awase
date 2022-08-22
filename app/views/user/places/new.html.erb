@@ -14,7 +14,7 @@
        <h4>待ち合わせ目印</h4>
         <%= f.text_field :spot %>
        <h4>待ち合わせ日時</h4>
-        <%= f.datetime_select :place_at, use_month_numbers: true, class: 'form-control' %>
+        <%= f.datetime_field :place_at, use_month_numbers: true, class: 'form-control' %>
        <%= f.submit '投稿' %>
      <% end %>
    </div>

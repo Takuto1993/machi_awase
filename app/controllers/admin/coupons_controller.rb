@@ -33,12 +33,18 @@ class Admin::CouponsController < ApplicationController
   def update
     @coupon = Coupon.find(params[:id])
     @coupon.update(coupon_params)
-     redirect_to coupon_path(@coupon.id)
+     redirect_to admin_coupon_path(@coupon.id)
+  end
+  
+  def destroy
+    @coupon = Coupon.find(params[:id])
+    @coupon.destroy
+    redirect_to '/admin/coupons'
   end
 
   private
 
   def coupon_params
-    params.require(:coupon).permit(:shop, :coupon_name, :expiration_date)
+    params.require(:coupon).permit(:shop, :coupon_name, :content, :from_day, :to_day)
   end
 end

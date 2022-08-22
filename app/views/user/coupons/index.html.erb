@@ -9,9 +9,6 @@
      <%= text_field_tag :search %>
      <%= submit_tag '検索する' %>
     <% end %>
-    <%= link_to "/admin/coupons/new" do %>
-     <%= "クーポン新規作成" %>
-    <% end %>
 
       <table class='table table-hover table-inverse'>
         <thead>
@@ -29,7 +26,7 @@
               <%= coupon.shop %>
             </td>
             <td>
-              <%= link_to admin_coupon_path(coupon.id) do %>
+              <%= link_to coupon_path(coupon.id) do %>
                 <%= coupon.coupon_name %>
               <% end %>
             </td>

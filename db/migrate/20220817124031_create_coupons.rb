@@ -4,8 +4,8 @@ class CreateCoupons < ActiveRecord::Migration[6.1]
       
       t.string :shop
       t.string :coupon_name
-      t.datetime :from_day
-      t.datetime :to_day
+      t.date :from_day
+      t.date :to_day
       t.string :content
 
       t.timestamps

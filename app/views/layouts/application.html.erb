@@ -32,7 +32,23 @@
               <%= link_to "待ち合わせ一覧", places_path %>
             </li>
             <li>
+              <%= link_to "クーポン一覧", coupons_path %>
+            </li>
+            <li>
               <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+            </li>
+          <% elsif admin_signed_in? %>
+            <li>
+              <%= link_to "ユーザー一覧", admin_users_path %>
+            </li>
+            <li>
+              <%= link_to "待ち合わせ一覧", admin_places_path %>
+            </li>
+            <li>
+              <%= link_to "クーポン一覧", admin_coupons_path %>
+            </li>
+            <li>
+              <%= link_to "管理者ログアウト", destroy_admin_session_path, method: :delete %>
             </li>
           <% else %>
             <li>

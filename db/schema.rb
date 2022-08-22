@@ -27,8 +27,8 @@ ActiveRecord::Schema.define(version: 2022_08_17_125021) do
   create_table "coupons", force: :cascade do |t|
     t.string "shop"
     t.string "coupon_name"
-    t.datetime "from_day"
-    t.datetime "to_day"
+    t.date "from_day"
+    t.date "to_day"
     t.string "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
