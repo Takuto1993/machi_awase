@@ -7,7 +7,14 @@
         <thead>
           <tr>
             <th>クーポン詳細</th>
-            <th></th>
+            <th>
+              <% #if文はログインユーザーのみいいね、取り消しできるようにする couponモデル参照 %>
+              <% if @coupon.nice_couponed_by?(current_user) %>
+               <%= link_to "いいねを取り消す", coupon_nice_coupons_path(@coupon), method: :delete %>
+              <% else %>
+               <%= link_to "❤︎いいね",coupon_nice_coupons_path(@coupon), method: :post %>
+              <% end %>
+            </th>
             <th colspan="2"></th>
           </tr>
         </thead>

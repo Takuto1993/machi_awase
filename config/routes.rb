@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  namespace :user do
+    get 'nice_coupons/index'
+  end
   root 'user/homes#top'
 
   get '/admin' => 'admin/homes#top'
@@ -23,7 +26,10 @@ Rails.application.routes.draw do
     end
     resources :users, only: [:index, :show, :edit, :update]
     resources :join_places, only: [:index]
-    resources :coupons, only: [:index, :show]
+    resources :coupons, only: [:index, :show] do
+      resource :nice_coupons, only: [:create, :destroy]
+    end
+    resources :nice_coupons, only: [:index]
   end
 
   #管理者側

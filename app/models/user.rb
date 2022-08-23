@@ -7,7 +7,7 @@ class User < ApplicationRecord
          has_many :places, dependent: :destroy
          has_many :place_comments, dependent: :destroy
          has_many :join_places, dependent: :destroy
-         has_many :nice_copons, dependent: :destroy
+         has_many :nice_coupons, dependent: :destroy
          has_many :join_places, dependent: :destroy
 
          has_one_attached :profile_image
