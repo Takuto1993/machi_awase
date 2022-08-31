@@ -15,7 +15,7 @@
       </div>
 
       <div class="field">
-        <%= f.label :Eメール %><br />
+        <%= f.label :eメール %><br />
         <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
       </div>
 
@@ -31,13 +31,16 @@
         <%= f.label :パスワード（確認用） %><br />
         <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
       </div>
+      <br>
 
       <div class="actions">
-        <%= f.submit "ユーザー登録" %>
+        <%= f.submit "ユーザー登録", class: "btn btn-success" %>
       </div>
     <% end %>
-
-    <%= render "user/shared/links" %>
+    <br>
+    <%= link_to new_user_session_path, class: "btn btn-primary" do %>
+     <%= "ログイン画面へ" %>
+    <% end %>
   </div>
  </div>
 </div>

@@ -17,47 +17,51 @@
         <a class="navbar-brand" href="/" >
           <span>MACHIあわせ</span>
         </a>
-        <div class="navbar-collapse collapse show" id="navbarNavDropdown" style >
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavdropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
          <ul class="navbar-nav ml-auto" >
           <% if user_signed_in? %>
-            <li>
+            <li class="nav-item">
               <%= link_to user_path(current_user.id) do %>
+               <%= image_tag current_user.get_profile_image(20,20) %>
                <%= current_user.name %>さんのマイページ
               <% end %>
             </li>
-            <li>
+            <li class="nav-item">
               <%= link_to "ユーザー一覧", users_path %>
             </li>
-            <li>
+            <li class="nav-item">
               <%= link_to "待ち合わせ一覧", places_path %>
             </li>
             <li>
               <%= link_to "クーポン一覧", coupons_path %>
             </li>
-            <li>
+            <li class="nav-item">
               <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
             </li>
           <% elsif admin_signed_in? %>
-            <li>
+            <li class="nav-item">
               <%= link_to "ユーザー一覧", admin_users_path %>
             </li>
-            <li>
+            <li class="nav-item">
               <%= link_to "待ち合わせ一覧", admin_places_path %>
             </li>
-            <li>
+            <li class="nav-item">
               <%= link_to "クーポン一覧", admin_coupons_path %>
             </li>
-            <li>
+            <li class="nav-item">
               <%= link_to "管理者ログアウト", destroy_admin_session_path, method: :delete %>
             </li>
           <% else %>
-            <li>
+            <li class="nav-item">
               <%= link_to "新規登録", new_user_registration_path %>
             </li>
-            <li>
+            <li class="nav-item">
               <%= link_to "ログイン", new_user_session_path %>
             </li>
-            <li>
+            <li class="nav-item">
               <%= link_to "ゲストログイン", user_guest_sign_in_path, method: :post %>
             </li>
           <% end %>
@@ -67,5 +71,14 @@
       </nav>
     </header>
     <%= yield %>
+    <footer>
+      <div class="container mt-5">
+        <div class="row" >
+          <div class="mx-auto">
+            <p>Machi Awase</p>
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

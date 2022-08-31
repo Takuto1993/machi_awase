@@ -1,19 +1,73 @@
  <p id="notice"></p>
-  <div class="container">
+  <div class="container px-5 px-sm-0">
    <div class="row">
-    <div class ="mx-auto">
+    <div class ="col-md-6">
      <div>
-      <h4>待ち合わせ詳細</h4>
-      <% if @place.user == current_user %>
-       <%= link_to "編集", edit_place_path(@place.id) %>
-      <% end %>
+      <h4>
+       待ち合わせ詳細
+       <% if @place.user == current_user %>
+        <%= link_to "待ち合わせ編集", edit_place_path(@place.id), class: "btn btn-success" %>
+       <% end %>
+      </h4>
       <div>
-        <p>件名:<%= @place.subject %></p>
-        <p>投稿ユーザー:<%= link_to @place.user.name, user_path(@place.user.id) %></p>
-        <p>本文</p>
-        <%= @place.body %>
-        <p>待ち合わせ場所:<%= @place.address %></p>
-
+       <table class ='table' >
+        <thead>
+         <tr>
+          <th>件名</th>
+          <th><%= @place.subject %></th>
+          <th colspan="2"></th>
+         </tr>
+         <tr>
+          <th>投稿ユーザー</th>
+          <th><%= link_to @place.user.name, user_path(@place.user.id) %></th>
+          <th colspan="2"></th>
+         </tr>
+        </thead>
+       </table>
+       <table class="table">
+        <thead>
+         <tr>
+          <th>本文</th>
+          <th></th>
+          <th colspan ="2"></th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td><%= safe_join(@place.body.split("\n"),tag(:br)) %></td>
+          <td colspan="1"></td>
+         </tr>
+        </tbody>
+       </table>
+        <table class="table">
+         <tbody>
+          <tr>
+           <td>待ち合わせ場所</td>
+           <td><%= @place.address %></td>
+           <td colspan="2"></td>
+          </tr>
+          <tr>
+           <td>待ち合わせ目印</td>
+           <td><%= @place.spot %></td>
+           <tdcolspan="2"></td>
+          </tr>
+          <tr>
+           <td>待ち合わせ日時</td>
+           <td><%= @place.place_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+           <td colspan="2"></td>
+          </tr>
+         </tbody>
+        </table>
+         
+         <h4>Google Map</h4>
+         <% if @place.latitude == nil %>
+         <% else %>
+          緯度:<%= @place.latitude %>
+         <% end %>
+         <% if @place.longitude == nil %>
+         <% else %>
+          経度:<%= @place.longitude %>
+         <% end %>
          <% #googlemapを表示 %>
          <% if @place.latitude == nil %>
           <%= "位置情報を所得できませんでした。" %>
@@ -59,38 +113,55 @@
           <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY'] %>&callback=initMap">
           </script>
          <% end %>
-         
-         <% if @place.latitude == nil %>
-         <% else %>
-          <p>緯度:<%= @place.latitude %></p>
-         <% end %>
-         <% if @place.longitude == nil %>
-         <% else %>
-          <p>経度:<%= @place.longitude %></p>
-         <% end %>
 
-        <p>待ち合わせ目印:<%= @place.spot %></p>
-        <p>待ち合わせ日時:<%= @place.place_at %></p>
-
+     </div>
+    </div>
+    </div>
+    <div class ="col-md-5 offset-md-1">
         <% #if文はログインユーザーのみ参加、取り消しできるようにする placeモデル参照 %>
         <% if @place.join_placed_by?(current_user) %>
-         <%= link_to "★参加を取り消す", place_join_places_path(@place), method: :delete %>
          <h4>参加者</h4>
-         <p>★参加数<%= @place.join_places.count %>人</p>
-         <% @place.join_places.each do |join_place| %>
-          <%= link_to join_place.user.name, user_path(join_place.user.id) %><%= "　,　" %>
-         <% end %>
+         <%= link_to "★参加を取り消す", place_join_places_path(@place), method: :delete, class: "btn btn-danger" %>
+          <table class='table table-hover table-inverse'>
+            <thead>
+              <tr>
+                <th>★参加人数:<%= @place.join_places.count %>人</th>
+                <th>参加者</th>
+                <th colspan="2"></th>
+              </tr>
+            </thead>
+            <% @place.join_places.each do |join_place| %>
+             <tbody>
+              <tr>
+               <th><%= image_tag join_place.user.get_profile_image(50,50) %><br></th>
+               <th><%= link_to join_place.user.name, user_path(join_place.user.id) %></th>
+              </tr>
+             </tbody>
+            <% end %>
+           </table>
          <% else %>
-          <%= link_to "★参加する", place_join_places_path(@place), method: :post %>
-         <h4>参加者</h4>
-         <p>★参加数<%= @place.join_places.count %>人</p>
-         <% @place.join_places.each do |join_place| %>
-          <%= link_to join_place.user.name, user_path(join_place.user.id) %>
+          <h4>参加者</h4>
+          <%= link_to "★参加する", place_join_places_path(@place), method: :post, class: "btn btn-primary" %>
+           <% @place.join_places.each do |join_place| %>
+           <table class='table table-hover table-inverse'>
+             <thead>
+               <tr>
+                 <th>★参加人数:<%= @place.join_places.count %>人</th>
+                 <th>参加者</th>
+                 <th colspan="2"></th>
+               </tr>
+             </thead>
+             <% @place.join_places.each do |join_place| %>
+              <tbody>
+               <tr>
+                <th><%= image_tag join_place.user.get_profile_image(50,50) %><br></th>
+                <th><%= link_to join_place.user.name, user_path(join_place.user.id) %></th>
+               </tr>
+              </tbody>
+             <% end %>
+            </table>
          <% end %>
         <% end %>
-
-      </div>
-     </div>
 
         <div>
           <h4>コメント一覧</h4>
@@ -131,5 +202,6 @@
           </div>
         </div>
     </div>
+   </div>
    </div>
   </div>
