@@ -2,10 +2,10 @@ class Admin::CouponsController < ApplicationController
   def index
     #入力が無いときすべて表示
     if params[:search] == nil
-      @coupons = Coupon.all
+      @coupons = Coupon.page(params[:page]).order(created_at: :desc)
     #入力に空白がある時はすべて表示
     elsif params[:search] == ' '
-      @coupons = Coupon.all
+      @coupons = Coupon.page(params[:page]).order(created_at: :desc)
     #入力がある時に検索する文字に登録したカラムとヒットした場合
     else
       @coupons = Coupon.where("shop LIKE? OR coupon_name LIKE?", '%' + params[:search] + '%', '%' + params[:search] + '%' )
@@ -35,7 +35,7 @@ class Admin::CouponsController < ApplicationController
     @coupon.update(coupon_params)
      redirect_to admin_coupon_path(@coupon.id)
   end
-  
+
   def destroy
     @coupon = Coupon.find(params[:id])
     @coupon.destroy

@@ -1,15 +1,6 @@
 class User::NiceCouponsController < ApplicationController
   def index
-    #入力が無いときすべて表示
-    if params[:search] == nil
-      @nice_coupons = NiceCoupon.all
-    #入力に空白がある時はすべて表示
-    elsif params[:search] == ' '
-      @nice_coupons = NiceCoupon.all
-    #入力がある時に検索する文字に登録したカラムとヒットした場合
-    else
-      @nice_coupons = NiceCoupon.where("nice_coupon.shop LIKE? OR nice_coupon.coupon_name LIKE?", '%' + params[:search] + '%', '%' + params[:search] + '%' )
-    end
+    @nice_coupons = NiceCoupon.page(params[:page]).order(created_at: :desc)
   end
 
   def create

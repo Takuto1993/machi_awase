@@ -1,7 +1,7 @@
 class User::JoinPlacesController < ApplicationController
-  
+
   def index
-    @join_places = current_user.join_places
+    @join_places = JoinPlace.page(params[:page]).order(created_at: :desc)
   end
 
   def create

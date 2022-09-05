@@ -182,7 +182,7 @@
 
                </td>
                <td>
-                <%= place_comment.comment %>
+                <%= safe_join(place_comment.comment.split("\n"),tag(:br)) %>
                </td>
                <td>
                  <% if place_comment.user == current_user %>

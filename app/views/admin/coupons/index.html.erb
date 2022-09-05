@@ -9,7 +9,7 @@
      <%= text_field_tag :search %>
      <%= submit_tag '検索する' %>
     <% end %>
-    <%= link_to "/admin/coupons/new" do %>
+    <%= link_to "/admin/coupons/new", class:"btn btn-success" do %>
      <%= "クーポン新規作成" %>
     <% end %>
 
@@ -41,6 +41,7 @@
             </td>
           </tr>
         <% end %>
+        <%= paginate @coupons %>
         </tbody>
       </table>
   </div>

@@ -31,13 +31,14 @@
               <%= link_to user_path(user.id) do %>
                 <%= user.name %>
               <% end %>
-            </td>
+            </td> 
             <td>
               <%= "#{user.places.count}件" %>
             </td>
             <td colspan="3"></td>
           </tr>
         <% end %>
+        <%= paginate @users %>
         </tbody>
       </table>
   </div>

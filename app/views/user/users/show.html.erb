@@ -32,18 +32,6 @@
       <%= @user.name %>さんのマイページ
     </h3>
       <table class='table table-hover table-inverse'>
-       <% if @user == current_user %>
-        <thead>
-          <tr>
-            <th><%= link_to "新規投稿", "/places/new" %></th>
-            <th><%= link_to "会員情報編集", edit_user_path(@user.id) %></th>
-            <th><%= link_to "参加した待ち合わせ一覧", "/join_places" %></th>
-            <th><%= link_to "❤︎いいねしたクーポン一覧", "/nice_coupons" %></th>
-            <th colspan="4"></th>
-          </tr>
-        </thead>
-       <% end %>
-
         <thead>
           <tr>
             <th>投稿者</th>
@@ -58,7 +46,7 @@
           <tr>
             <td>
               <%= link_to user_path(place.user.id) do %>
-               <%= image_tag @user.get_profile_image(50,50) %>
+               <%= image_tag @user.get_profile_image(50,50) %><br>
                <%= place.user.name %>
               <% end %>
             </td>
@@ -75,6 +63,7 @@
             </td>
           </tr>
         <% end %>
+        <%= paginate @places %>
         </tbody>
       </table>
   </div>

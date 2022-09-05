@@ -12,9 +12,9 @@
      <%= f.text_field :spot %>
     <h4>待ち合わせ日時</h4>
      <%= f.datetime_field :place_at, use_month_numbers: true, class: 'form-control' %>
-    <%= f.submit '変更保存' %>
+    <%= f.submit '変更保存', class: "btn btn-success" %>
   <% end %>
 
   <% if @place.user == current_user %>
-   <%= link_to "削除", place_path(@place), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+   <%= link_to "削除", place_path(@place), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger" %>
   <% end %>

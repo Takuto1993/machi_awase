@@ -3,10 +3,10 @@ class User::UsersController < ApplicationController
   def index
     #入力が無いときすべて表示
     if params[:search] == nil
-      @users = User.all
+      @users = User.page(params[:page]).order(created_at: :desc)
     #入力に空白がある時はすべて表示
     elsif params[:search] == '　'
-      @users = User.sll
+      @users = User.page(params[:page]).order(created_at: :desc)
     #入力がある時に検索する文字に登録したカラムとヒットした場合
     else
       @users = User.where("name LIKE?", '%' + params[:search] + '%')
@@ -15,7 +15,7 @@ class User::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @places = @user.places
+    @places = @user.places.page(params[:page]).order(created_at: :desc)
   end
 
   def edit

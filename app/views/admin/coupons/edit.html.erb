@@ -13,11 +13,10 @@
        <%= f.date_field :to_day, use_month_numbers: true, class: 'form-control date-picker' %><%= "まで" %>
       <h4>内容</h4>
        <%= f.text_area :content, size: "40x10" %>
-      <%= f.submit '投稿' %>
+       <br>
+      <%= f.submit '変更保存', class:"btn btn-success btn-block mb-3" %>
     <% end %>
-    <% if current_admin %>
-     <%= link_to "削除", admin_coupon_path(@coupon), method: :delete, "data-confirm" => "本当に削除しますか？" %>
-    <% end %>
+    <%= link_to "削除", admin_coupon_path(@coupon), method: :delete, "data-confirm" => "本当に削除しますか？", class:"btn btn-danger btn-block mb-3" %>
    </div>
   </div>
  </div>
