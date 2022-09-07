@@ -3,7 +3,9 @@
  <div class="row">
   <div class ="mx-auto">
     <h3>待ち合わせ一覧</h3>
-    <%= link_to "新規投稿", "places/new" %>
+    <%= link_to "places/new", class:"btn btn-success mb-3" do %>
+     <i class="fas fa-map-pin"></i><span>新規投稿</span>
+    <% end %>
 
     <% #検索フォーム %>
     <%= form_tag({controller:"places",action:"index"}, method: :get) do %>

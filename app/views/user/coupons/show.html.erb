@@ -10,9 +10,13 @@
             <th>
               <% #if文はログインユーザーのみいいね、取り消しできるようにする couponモデル参照 %>
               <% if @coupon.nice_couponed_by?(current_user) %>
-               <%= link_to "いいねを取り消す", coupon_nice_coupons_path(@coupon), method: :delete %>
+               <%= link_to coupon_nice_coupons_path(@coupon), method: :delete do %>
+                <i class="fas fa-heart"></i><span>いいねを取り消す</span>
+               <% end %>
               <% else %>
-               <%= link_to "❤︎いいね",coupon_nice_coupons_path(@coupon), method: :post %>
+               <%= link_to coupon_nice_coupons_path(@coupon), method: :post do %>
+                <i class="far fa-heart"></i><span>いいねをする</span>
+               <% end %>
               <% end %>
             </th>
             <th colspan="2"></th>

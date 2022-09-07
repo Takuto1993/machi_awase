@@ -13,16 +13,16 @@
     <% if @user == current_user %>
       <div class="row">
         <%= link_to "/places/new", class:"btn btn-success btn-block" do %>
-         <%= "新規投稿" %>
+         <i class="fas fa-map-pin"></i><span>新規投稿</span>
         <% end %>
        <%= link_to edit_user_path(@user), class:"btn btn-outline-secondary btn-block" do %>
-        <% "ユーザー情報編集" %>
+        <i class="fas fa-cog"></i><span>ユーザー情報編集</span>
        <% end %>
        <%= link_to "/join_places", class:"btn btn-info btn-block" do %>
-        <%= "参加した待ち合わせ一覧" %>
+         <i class="fas fa-handshake"></i><span>参加した待ち合わせ一覧</span>
        <% end %>
-       <%= link_to  "/nice_coupon ", class:"btn btn-primary btn-block" do %>
-        <%= "❤︎いいねしたクーポン一覧" %>
+       <%= link_to  "/nice_coupons", class:"btn btn-primary btn-block" do %>
+        <i class="fas fa-heart"></i><span>︎いいねしたクーポン一覧</span>
        <% end %>
       </div>
     <% end %>

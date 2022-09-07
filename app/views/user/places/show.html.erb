@@ -58,7 +58,7 @@
           </tr>
          </tbody>
         </table>
-         
+
          <h4>Google Map</h4>
          <% if @place.latitude == nil %>
          <% else %>
@@ -121,7 +121,9 @@
         <% #if文はログインユーザーのみ参加、取り消しできるようにする placeモデル参照 %>
         <% if @place.join_placed_by?(current_user) %>
          <h4>参加者</h4>
-         <%= link_to "★参加を取り消す", place_join_places_path(@place), method: :delete, class: "btn btn-danger" %>
+         <%= link_to place_join_places_path(@place), method: :delete, class: "btn btn-danger" do %>
+          <i class="fas fa-handshake"></i><span>参加を取り消す</span>
+         <% end %>
           <table class='table table-hover table-inverse'>
             <thead>
               <tr>
@@ -141,7 +143,9 @@
            </table>
          <% else %>
           <h4>参加者</h4>
-          <%= link_to "★参加する", place_join_places_path(@place), method: :post, class: "btn btn-primary" %>
+          <%= link_to place_join_places_path(@place), method: :post, class: "btn btn-primary" do %>
+           <i class="far fa-handshake"></i><span>参加する</span>
+          <% end %>
            <% @place.join_places.each do |join_place| %>
            <table class='table table-hover table-inverse'>
              <thead>
