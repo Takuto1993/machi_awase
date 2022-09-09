@@ -4,25 +4,32 @@
   <div class ="mx-auto">
     <%= flash[:notice] %>
     <h2>ユーザーログイン</h2>
-    
+     <% if @user.errors.any? %>
+       <%= @user.errors.count %>件のエラーが発生しました 
+       <ul>
+         <% @user.errors.full_messages.each do |message| %>
+           <li><%= message %></li>
+         <% end %>
+       </ul>
+     <% end %>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="field">
         <%= f.label :email %><br />
         <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
       </div>
-    
+
       <div class="field">
         <%= f.label :"パスワード" %><br />
         <%= f.password_field :password, autocomplete: "current-password" %>
       </div>
-    
+
       <% if devise_mapping.rememberable? %>
         <div class="field">
           <%= f.check_box :remember_me %>
           <%= f.label :"次回自動ログイン" %>
         </div>
       <% end %>
-    
+
       <div class="actions">
         <%= f.submit "ログイン", class: "btn btn-primary btn-block" %>
       </div>

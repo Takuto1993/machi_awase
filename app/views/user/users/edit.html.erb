@@ -4,7 +4,14 @@
   <div class ="mx-auto">
     <%= flash[:notice] %>
     <h2>会員情報編集</h2>
-
+     <% if @user.errors.any? %>
+       <%= @user.errors.count %>件のエラーが発生しました %>
+       <ul>
+         <% @user.errors.full_messages.each do |message| %>
+           <li><%= message %></li>
+         <% end %>
+       </ul>
+     <% end %>
     <%= form_with model:@user, url: user_path(@user.id), method: :patch do |f| %>
 
       <div class="field">
@@ -37,16 +44,15 @@
 
       <div class="field">
         <%= f.label :新しいパスワード（確認用） %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"mb-3" %>
       </div>
 
-
       <div class="actions">
-        <%= f.submit "変更保存" %>
+        <%= f.submit "変更保存", class:"btn btn-success mb-3" %>
       </div>
     <% end %>
 
-    <%= link_to "退会画面へ", unsubscribe_path(@user.id) %>
+    <%= link_to "退会画面へ", unsubscribe_path(@user.id), class:"btn btn-danger mb-3" %>
 
   </div>
  </div>

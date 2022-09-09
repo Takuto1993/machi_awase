@@ -113,7 +113,7 @@
           <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY'] %>&callback=initMap">
           </script>
          <% end %>
-
+         <p id="notice"></p>
      </div>
     </div>
     </div>
@@ -200,8 +200,8 @@
           <h4>コメント投稿</h4>
           <div>
             <%= form_with model: [@place, @place_comment] do |f| %>
-             <%= f.text_area :comment, rows: '5', placeholder: "コメントはこちら" %>
-             <%= f.submit "送信" %>
+             <%= f.text_area :comment, rows: '5', placeholder: "コメントはこちら", size: "50x10" %>
+             <%= f.submit "送信", class:"btn btn-success mb-3" %>
             <% end %>
           </div>
         </div>

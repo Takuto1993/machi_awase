@@ -65,3 +65,5 @@ gem 'geocoder'
 gem "enum_help"
 
 gem 'dotenv-rails'
+
+gem 'rails-i18n'

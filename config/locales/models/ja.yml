@@ -1,0 +1,34 @@
+ja:
+  activerecord:
+    models:
+      admin: 管理者
+      user: ユーザー
+      coupon: クーポン 
+      join_place: 参加
+      nice_coupon: いいねクーポン
+      place: 待ち合わせ
+      place_comment: 待ち合わせコメント
+    attributes:
+      admin:
+        email: Eメール
+        password: パスワード
+      user:
+        name: ユーザーネーム
+        email: Eメール
+        password: パスワード
+      coupon: 
+        shop: 使えるお店
+        coupon_name: クーポン名
+        from_day: 使え始めの日
+        to_day: 使えなくなる日
+        content: 内容
+      place_comment:
+        comment: コメント
+      place:
+        subject: 件名
+        body: 本文
+        address: 待ち合わせ場所（住所）
+        latitude: 緯度
+        longitude: 経度
+        spot: 待ち合わせ目印
+        place_at: 待ち合わせ日時
