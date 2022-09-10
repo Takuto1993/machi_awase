@@ -5,9 +5,15 @@
     <%= flash[:notice] %>
 
     <h2>ユーザー登録</h2>
-
+     <% if @user.errors.any? %>
+       <%= @user.errors.count %>件のエラーが発生しました 
+       <ul>
+         <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+         <% end %>
+       </ul>
+     <% end %>
     <%= form_with model:@user, url: user_registration_path do |f| %>
-      <%= render "user/shared/error_messages", resource: resource %>
 
       <div class="field">
         <%= f.label :ユーザーネーム %><br />

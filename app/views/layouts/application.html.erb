@@ -93,7 +93,12 @@
       </nav>
     </header>
     <main class="mb-auto">
-    <%= yield %>
+      <body>
+        <%# deivseのフラッシュメッセージを表示 %>
+        <%= flash[:notice] %>
+        <%= flash[:alert] %>
+        <%= yield %>
+      </body>
     </main>
     <footer class="text-white pt-5 pb-4" style="background-color: #FF8C00;">
       <div class="container mt-5">
