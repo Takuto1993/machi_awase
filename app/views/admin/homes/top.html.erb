@@ -2,6 +2,8 @@
  <div class="container">
   <div class="row">
    <div class="mx-auto">
+    <%= flash[:notice] %>
+    <%= flash[:alert] %>
     <h3>管理者トップページ</h3>
     <%= link_to "ユーザー一覧", admin_users_path, class:"btn btn-primary btn-block mb-3" %>
     <%= link_to "待ち合わせ一覧", admin_places_path, class:"btn btn-success btn-block mb-3" %>

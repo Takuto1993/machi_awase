@@ -1,4 +1,8 @@
 class Admin::UsersController < ApplicationController
+  
+  #管理者でログインしていない場合は管理者ログイン画面へ
+  before_action :authenticate_admin!
+  
   def index
     #入力が無いときすべて表示
     if params[:search] == nil
@@ -27,6 +31,7 @@ class Admin::UsersController < ApplicationController
   redirect_to admin_user_path(@user.id)
   end
 
+  #会員を有効にしたり無効にしたりするボタン
   def  toggle
     @user = User.find(params[:user_id])
     if @user.is_deleted?

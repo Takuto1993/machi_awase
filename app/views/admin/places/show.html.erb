@@ -56,7 +56,7 @@
           </tr>
          </tbody>
         </table>
-         
+
          <h4>Google Map</h4>
          <% if @place.latitude == nil %>
          <% else %>
@@ -158,7 +158,7 @@
                 <%= safe_join(place_comment.comment.split("\n"),tag(:br)) %>
                </td>
                <td>
-                 <%= link_to "削除", place_place_comment_path(place_comment.place, place_comment), method: :delete, "data-confirm"  => "コメントを削除しますか？" %>
+                 <%= link_to "削除", place_place_comment_path(place_comment.place, place_comment), method: :delete, "data-confirm"  => "コメントを削除しますか？", class:"btn btn-danger" %>
                </td>
              </tr>
            <% end %>

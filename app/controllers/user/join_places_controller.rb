@@ -1,7 +1,10 @@
 class User::JoinPlacesController < ApplicationController
+  
+  #ユーザーログインしていない時はログイン画面へ移行
+  before_action :authenticate_user!
 
   def index
-    @join_places = JoinPlace.page(params[:page]).order(created_at: :desc)
+    @join_places = current_user.join_places.page(params[:page]).order(created_at: :desc)
   end
 
   def create

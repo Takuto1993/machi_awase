@@ -1,4 +1,7 @@
 class User::UsersController < ApplicationController
+  
+  #ユーザーログインしていない時はログイン画面へ移行（index,showは除外）
+  before_action :authenticate_user!, except: [:index, :show]
 
   def index
     #入力が無いときすべて表示
@@ -9,7 +12,7 @@ class User::UsersController < ApplicationController
       @users = User.page(params[:page]).order(created_at: :desc)
     #入力がある時に検索する文字に登録したカラムとヒットした場合
     else
-      @users = User.where("name LIKE?", '%' + params[:search] + '%')
+      @users = User.where("name LIKE?", '%' + params[:search] + '%').page(params[:page]).order(created_at: :desc)
     end
   end
 
@@ -39,6 +42,6 @@ class User::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :profile_image, :email, :encrypted_password, :password)
+    params.require(:user).permit(:name, :profile_image, :email, :encrypted_password, :password, :is_deleted)
   end
 end

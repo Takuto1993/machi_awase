@@ -1,4 +1,8 @@
 class User::PlacesController < ApplicationController
+  
+  #ユーザーログインしていない時はログイン画面へ移行（index,showは除外）
+  before_action :authenticate_user!, except: [:index, :show]
+  
   def new
     @place = Place.new
   end

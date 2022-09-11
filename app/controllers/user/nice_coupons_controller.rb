@@ -1,6 +1,10 @@
 class User::NiceCouponsController < ApplicationController
+  
+  #ユーザーログインしていない時はログイン画面へ移行
+  before_action :authenticate_user!
+  
   def index
-    @nice_coupons = NiceCoupon.page(params[:page]).order(created_at: :desc)
+    @nice_coupons = current_user.nice_coupons.page(params[:page]).order(created_at: :desc)
   end
 
   def create

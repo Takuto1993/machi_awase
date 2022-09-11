@@ -1,4 +1,8 @@
 class Admin::PlacesController < ApplicationController
+
+  #管理者でログインしていない場合は管理者ログイン画面へ
+  before_action :authenticate_admin!
+
   def index
     #入力が無いときすべて表示
     if params[:search] == nil

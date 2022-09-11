@@ -51,6 +51,11 @@
             </li>
           <% elsif admin_signed_in? %>
             <li class="nav-item">
+              <%= link_to admin_path, class: 'nav-link text-light' do %>
+               <i class="fa fa-exclamation "></i><span>管理者トップ</span>
+              <% end %>
+            </li>
+            <li class="nav-item">
               <%= link_to admin_users_path, class: 'nav-link text-light' do %>
                <i class="fas fa-users"></i><span>ユーザー一覧</span>
               <% end %>
@@ -93,18 +98,15 @@
       </nav>
     </header>
     <main class="mb-auto">
-      <body>
-        <%# deivseのフラッシュメッセージを表示 %>
-        <%= flash[:notice] %>
-        <%= flash[:alert] %>
-        <%= yield %>
-      </body>
+    <%= yield %>
     </main>
     <footer class="text-white pt-5 pb-4" style="background-color: #FF8C00;">
-      <div class="container mt-5">
+      <div class="container mt-3">
           <div class="row">
             <div class="mx-auto">
               <p>Machi Awase</p>
+              <% #管理者ログインは仮でサイト下部に配置しています %>
+              <%= link_to "管理者ログイン", admin_session_path %>
             </div>
           </div>
       </div>
