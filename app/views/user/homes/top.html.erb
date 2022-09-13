@@ -6,7 +6,7 @@
         <%= flash[:notice] %>
       <h3>MACHIあわせへようこそ!</h3>
       <div>
-        ※このサイトのお店クーポンなどは架空のものです。<br>
+        ※当サイトのお店、クーポンなどは架空のものです。<br>
         実際にご利用いただけません。
       </div>
       <br>
@@ -21,6 +21,11 @@
       町で使えるクーポンも配布していますので<br>
       待ち合わせの時間潰しや待ち合わせ後の目的地として<br>
       お得に遊びやお買い物をしよう！<br>
+      <br>
+      
+      <%= link_to "ユーザー一覧", '/users', class:"btn btn-primary mb-5" %>
+      <%= link_to "待ち合わせ一覧", '/places', class:"btn btn-success mb-5" %>
+      <%= link_to "クーポン一覧", '/coupons', class:"btn btn-warning mb-5" %>
       </div>
     </div>
   </div>

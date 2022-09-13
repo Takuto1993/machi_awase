@@ -6,10 +6,12 @@ class Coupon < ApplicationRecord
     nice_coupons.exists?(user_id: user.id)
   end
   
-  validate :shop
+  validates :shop,
    {presence: true, length: { maximum: 30 } }
-  validate :coupon_name
+  validates :coupon_name,
    {presence: true, length: { maximum: 30 } }
+  validates :from_day, presence: true
+  validates :to_day, presence: true
   validates :content, presence: true
   
 end

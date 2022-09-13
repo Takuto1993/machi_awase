@@ -12,7 +12,7 @@ class Admin::CouponsController < ApplicationController
       @coupons = Coupon.page(params[:page]).order(created_at: :desc)
     #入力がある時に検索する文字に登録したカラムとヒットした場合
     else
-      @coupons = Coupon.where("shop LIKE? OR coupon_name LIKE?", '%' + params[:search] + '%', '%' + params[:search] + '%' )
+      @coupons = Coupon.where("shop LIKE? OR coupon_name LIKE?", '%' + params[:search] + '%', '%' + params[:search] + '%' ).page(params[:page]).order(created_at: :desc)
     end
   end
 
@@ -22,8 +22,11 @@ class Admin::CouponsController < ApplicationController
 
   def create
     @coupon = Coupon.new(coupon_params)
-    @coupon.save
+    if @coupon.save
      redirect_to admin_coupon_path(@coupon.id)
+    else
+      render :new
+    end
   end
 
   def show
@@ -36,8 +39,11 @@ class Admin::CouponsController < ApplicationController
 
   def update
     @coupon = Coupon.find(params[:id])
-    @coupon.update(coupon_params)
+    if @coupon.update(coupon_params)
      redirect_to admin_coupon_path(@coupon.id)
+    else
+      render :edit
+    end
   end
 
   def destroy

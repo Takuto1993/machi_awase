@@ -12,16 +12,17 @@
        </ul>
      <% end %>
      <%= form_with model: @coupon, url: admin_coupon_path(@coupon.id), method: :patch do |f| %>
-      <h4>使えるお店</h4>
-       <%= f.text_field :shop, size: "60x10" %>
-      <h4>クーポン名</h4>
-       <%= f.text_field :coupon_name, size: "60x10" %>
-      <h4>使用期限</h4>
-       <%= f.date_field :from_day, use_month_numbers: true, class: 'form-control date-picker' %><%= "から" %><br>
-       <%= f.date_field :to_day, use_month_numbers: true, class: 'form-control date-picker' %><%= "まで" %>
-      <h4>内容</h4>
-       <%= f.text_area :content, size: "40x10" %>
-       <br>
+      <%= "使えるお店(30字まで)" %><br>
+       <%= f.text_field :shop, size: "60x10" %><br>
+      <%= "クーポン名(30字まで)" %><br>
+       <%= f.text_field :coupon_name, size: "60x10" %><br>
+       <h5>使用期限</h5>
+       <%= "使用可能日" %>
+       <%= f.date_field :from_day, use_month_numbers: true, class: 'form-control date-picker' %>
+       <%= "期限終了日" %>
+       <%= f.date_field :to_day, use_month_numbers: true, class: 'form-control date-picker' %>
+      <%= "内容" %><br>
+       <%= f.text_area :content, size: "60x10" %><br>
       <%= f.submit '変更保存', class:"btn btn-success btn-block mb-3" %>
     <% end %>
     <%= link_to "削除", admin_coupon_path(@coupon), method: :delete, "data-confirm" => "本当に削除しますか？", class:"btn btn-danger btn-block mb-3" %>

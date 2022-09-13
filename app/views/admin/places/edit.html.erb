@@ -11,7 +11,7 @@
          <% end %>
        </ul>
      <% end %>
-      <%= form_with model: @place do |f| %>
+      <%= form_with model: @place, url: admin_place_path(@place.id) do |f| %>
         <h4>件名</h4>
          <%= f.text_field :subject, size: "60x10" %>
         <h4>本文</h4>
@@ -24,10 +24,9 @@
         <h4>待ち合わせ日時</h4>
          <%= f.datetime_field :place_at, use_month_numbers: true, class: 'form-control' %>
          <br>
-        <%= f.submit '変更保存', class: "btn btn-success" %>
+        <%= f.submit '変更保存', class: "btn btn-success mb-3" %>
       <% end %>
-      <br>
-      <%= link_to "削除", admin_place_path(@place), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger" %>
+      <%= link_to "削除", admin_place_path(@place), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger mb-3" %>
    </div>
   </div>
  </div>

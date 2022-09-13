@@ -27,12 +27,17 @@ class User::UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    @user.update(user_params)
-    redirect_to user_path(@user.id)
+    if @user.update(user_params)
+      #パスワード変更をしてもログアウトすることを防ぐ
+      sign_in(@user, bypass: true) if current_user.id == @user.id
+      redirect_to user_path(@user.id)
+    else
+      render :edit
+    end
   end
 
   def withdraw
-    @user = User.find(params[:id])
+    @user = current_user
     @user.update(is_deleted: true)
     reset_session
     flash[:notice] = "退会処理を実行しました"

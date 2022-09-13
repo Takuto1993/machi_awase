@@ -9,9 +9,9 @@ Rails.application.routes.draw do
   get 'search' => 'places#search'
 
   #退会画面用
-  get '/users/:id/unsubscribe' => 'user/users#unsubscribe', as: 'unsubscribe'
+  get '/users/unsubscribe' => 'user/users#unsubscribe', as: 'unsubscribe'
   #論理削除用のルーティング
-  patch '/users/:id/withdraw' => 'user/users#withdraw', as: 'withdraw'
+  patch '/users/withdraw' => 'user/users#withdraw', as: 'withdraw'
 
   #ゲストログイン用
   devise_scope :user do

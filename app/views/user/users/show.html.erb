@@ -24,16 +24,16 @@
         </table>
         <% if @user == current_user %>
           <div class="row">
-            <%= link_to "/places/new", class:"btn btn-success btn-block" do %>
-             <i class="fas fa-map-pin"></i><span>新規投稿</span>
+            <%= link_to "/places/new", class:"btn btn-success btn-block mb-3" do %>
+             <i class="fas fa-map-pin"></i><span>待ち合わせ新規投稿</span>
             <% end %>
-           <%= link_to edit_user_path(@user), class:"btn btn-outline-secondary btn-block" do %>
+           <%= link_to edit_user_path(@user), class:"btn btn-outline-secondary btn-block mb-3" do %>
             <i class="fas fa-cog"></i><span>ユーザー情報編集</span>
            <% end %>
-           <%= link_to "/join_places", class:"btn btn-info btn-block" do %>
+           <%= link_to "/join_places", class:"btn btn-info btn-block mb-3" do %>
              <i class="fas fa-handshake"></i><span>参加した待ち合わせ一覧</span>
            <% end %>
-           <%= link_to  "/nice_coupons", class:"btn btn-primary btn-block" do %>
+           <%= link_to  "/nice_coupons", class:"btn btn-primary btn-block mb-3" do %>
             <i class="fas fa-heart"></i><span>︎いいねしたクーポン一覧</span>
            <% end %>
           </div>

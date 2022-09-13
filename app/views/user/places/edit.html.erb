@@ -26,9 +26,7 @@
         <%= f.submit '変更保存', class: "btn btn-success mb-3" %>
       <% end %>
 
-      <% if @place.user == current_user %>
-       <%= link_to "削除", place_path(@place), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger mb-3" %>
-      <% end %>
+      <%= link_to "削除", place_path(@place), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger mb-3" %>
    </div>
   </div>
  </div>

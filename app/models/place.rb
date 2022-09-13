@@ -12,7 +12,7 @@ class Place < ApplicationRecord
   def join_placed_by?(user)
     join_places.exists?(user_id: user.id)
   end
-  
+
   validates :subject,
    {presence: true, length: { maximum: 30 } }
   validates :body,  presence: true

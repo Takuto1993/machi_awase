@@ -27,8 +27,11 @@ class Admin::PlacesController < ApplicationController
 
   def update
    @place = Place.find(params[:id])
-   @place.update(place_params)
-   redirect_to admin_place_path(@place.id)
+   if @place.update(place_params)
+    redirect_to admin_place_path(@place.id)
+   else
+    render :edit
+   end
   end
 
   def destroy

@@ -19,8 +19,8 @@ ja:
       coupon: 
         shop: 使えるお店
         coupon_name: クーポン名
-        from_day: 使え始めの日
-        to_day: 使えなくなる日
+        from_day: 使用可能日
+        to_day: 期限日
         content: 内容
       place_comment:
         comment: コメント
