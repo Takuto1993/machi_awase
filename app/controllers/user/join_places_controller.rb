@@ -1,6 +1,5 @@
 class User::JoinPlacesController < ApplicationController
   
-  #ユーザーログインしていない時はログイン画面へ移行
   before_action :authenticate_user!
 
   def index

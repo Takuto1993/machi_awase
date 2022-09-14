@@ -1,16 +1,12 @@
 class Admin::PlacesController < ApplicationController
 
-  #管理者でログインしていない場合は管理者ログイン画面へ
   before_action :authenticate_admin!
 
   def index
-    #入力が無いときすべて表示
     if params[:search] == nil
       @places = Place.page(params[:page]).order(created_at: :desc)
-    #入力に空白がある時はすべて表示
     elsif params[:search] == '　'
       @places = Place.page(params[:page]).order(created_at: :desc)
-    #入力がある時に検索する文字に登録したカラムとヒットした場合
     else
       @places = Place.where("subject LIKE? OR body LIKE? OR address LIKE? OR spot LIKE?", '%' + params[:search] + '%', '%' + params[:search] + '%', '%' + params[:search] + '%', '%' + params[:search] + '%' ).page(params[:page]).order(created_at: :desc)
     end
