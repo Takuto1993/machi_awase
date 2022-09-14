@@ -10,12 +10,12 @@
             <th>
               <% if user_signed_in? %>
                 <% if @coupon.nice_couponed_by?(current_user) %>
-                 <%= link_to coupon_nice_coupons_path(@coupon), method: :delete do %>
+                 <%= link_to coupon_nice_coupons_path(@coupon), method: :delete, class: "btn btn-sm btn-danger" do %>
                   <i class="fas fa-heart"></i><span>いいねを取り消す</span>
                  <% end %>
                 <% else %>
-                 <%= link_to coupon_nice_coupons_path(@coupon), method: :post do %>
-                  <i class="far fa-heart"></i><span>いいねをする</span>
+                 <%= link_to coupon_nice_coupons_path(@coupon), method: :post, class: "btn btn-sm btn-primary" do %>
+                  <i class="far fa-heart"></i><span>いいね</span>
                  <% end %>
                 <% end %>
               <% end %>

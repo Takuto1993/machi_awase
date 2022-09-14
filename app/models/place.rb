@@ -20,6 +20,7 @@ class Place < ApplicationRecord
    {presence: true, length: { maximum: 30 } }
   validates :spot,
    {presence: true, length: { maximum: 30 } }
+  validates :place_at, presence: true
 
 
 end

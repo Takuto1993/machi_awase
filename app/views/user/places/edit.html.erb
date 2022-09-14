@@ -15,7 +15,7 @@
         <h4>件名</h4>
          <%= f.text_field :subject, size: "60x10" %>
         <h4>本文</h4>
-         <%= f.text_area :body, size: "80x10" %>
+         <%= f.text_area :body, size: "60x10" %>
         <h4>待ち合わせ場所</h4>
          <%= f.text_field :address, size: "60x10" %>
 
@@ -23,10 +23,10 @@
          <%= f.text_field :spot, size: "60x10" %>
         <h4>待ち合わせ日時</h4>
          <%= f.datetime_field :place_at, use_month_numbers: true, class: 'form-control mb-3' %>
-        <%= f.submit '変更保存', class: "btn btn-success mb-3" %>
+        <%= f.submit '変更保存', class: "btn btn-success btn-block mb-3" %>
       <% end %>
 
-      <%= link_to "削除", place_path(@place), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger mb-3" %>
+      <%= link_to "削除", place_path(@place), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger btn-block mb-3" %>
    </div>
   </div>
  </div>

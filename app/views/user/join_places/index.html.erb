@@ -16,9 +16,9 @@
         <% @join_places.each do |join_place| %>
           <tr>
             <td>
-              <%= link_to user_path(join_place.user.id) do %>
-               <%= image_tag join_place.user.get_profile_image(50,50) %><br>
-               <%= join_place.user.name %>
+              <%= link_to user_path(join_place.place.user.id) do %>
+               <%= image_tag join_place.place.user.get_profile_image(50,50) %><br>
+               <%= join_place.place.user.name %>
               <% end %>
             </td>
             <td>
