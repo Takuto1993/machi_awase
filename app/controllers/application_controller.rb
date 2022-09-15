@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-    #adminでログインした場合の移行先ページ
     def after_sign_in_path_for(resource_or_scope)
       if resource_or_scope.is_a?(Admin)
           admin_path
@@ -8,7 +7,6 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    #userでログアウトした場合の移行先ページ
     def after_sign_out_path_for(resource_or_scope)
       if resource_or_scope == :user
           root_path

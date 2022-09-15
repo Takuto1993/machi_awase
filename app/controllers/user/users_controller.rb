@@ -24,7 +24,6 @@ class User::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      #パスワード変更をしてもログアウトすることを防ぐ
       sign_in(@user, bypass: true) if current_user.id == @user.id
       redirect_to user_path(@user.id)
     else

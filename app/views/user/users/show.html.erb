@@ -24,15 +24,12 @@
         </table>
         <% if @user == current_user %>
           <div class="row">
-            <%= link_to "/places/new", class:"btn btn-success btn-block mb-1" do %>
+           <%= link_to "/places/new", class:"btn btn-success btn-block mb-1" do %>
              <i class="fas fa-map-pin"></i><span>新しく待ち合わせをする</span>
-            <% end %>
-           <% if @user.email == 'guest@example.com' %>
-           <% else %>
-             <%= link_to edit_user_path(@user), class:"btn btn-outline-secondary btn-block mb-1" do %>
-              <i class="fas fa-cog"></i><span>ユーザー情報編集</span>
-             <% end %>
-            <% end %>
+           <% end %>
+           <%= link_to edit_user_path(@user), class:"btn btn-outline-secondary btn-block mb-1" do %>
+             <i class="fas fa-cog"></i><span>ユーザー情報編集</span>
+           <% end %>
            <%= link_to "/join_places", class:"btn btn-info btn-block mb-1" do %>
              <i class="fas fa-handshake"></i><span>参加した待ち合わせ一覧</span>
            <% end %>

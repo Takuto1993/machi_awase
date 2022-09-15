@@ -8,12 +8,9 @@ Rails.application.routes.draw do
 
   get 'search' => 'places#search'
 
-  #退会画面用
   get '/users/unsubscribe' => 'user/users#unsubscribe', as: 'unsubscribe'
-  #論理削除用のルーティング
   patch '/users/withdraw' => 'user/users#withdraw', as: 'withdraw'
 
-  #ゲストログイン用
   devise_scope :user do
     post 'user/guest_sign_in', to: 'user/sessions#guest_sign_in'
   end
@@ -45,15 +42,11 @@ Rails.application.routes.draw do
     resources :coupons, only: [:index, :show, :edit, :new, :update, :destroy, :create]
   end
 
-  # 顧客用
-  # URL /customers/sign_in ...
   devise_for :user,skip: [:passwords], controllers: {
     registrations: "user/registrations",
     sessions: 'user/sessions'
   }
 
-  # 管理者用
-  # URL /admin/sign_in ...
   devise_for :admin, skip: [:passwords] , controllers: {
     registrations: "admin/registrations",
     sessions: "admin/sessions"

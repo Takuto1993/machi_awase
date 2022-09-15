@@ -20,14 +20,12 @@ class User < ApplicationRecord
             profile_image.variant(resize_to_limit: [width, height]).processed
          end
 
-         #ゲストユーザーログイン時に仮で作成されるeメールとユーザー
          def self.guest
              find_or_create_by!(email: 'guest@example.com', name: 'gest') do |user|
                  user.password = SecureRandom.urlsafe_base64
              end
          end
 
-         # 退会ステータスが退会の場合ログインできないようにするコード
          def active_for_authentication?
            super && (is_deleted == false)
          end
