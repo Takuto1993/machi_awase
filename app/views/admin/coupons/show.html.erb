@@ -1,0 +1,51 @@
+<p id="notice"></p>
+  <div class="container">
+   <div class="row">
+    <div class ="col-sm-12 col-md-8 col-lg-5 px-5 mx-auto">
+     <div>
+      <table class='table'>
+        <thead>
+          <tr>
+            <th>クーポン詳細</th>
+            <th><%= link_to "編集", edit_admin_coupon_path(@coupon.id), class:"btn btn-sm btn-success" %></th>
+            <th colspan="2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <%= "使えるお店" %>
+            </td>
+            <td>
+              <%= @coupon.shop %>
+            </td>
+          </tr>
+          <tr>
+           <td>クーポン名</td>
+           <td><%= @coupon.coupon_name %></td>
+          </tr>
+          <tr>
+            <td>使用期限</td>
+            <td>
+              <%= @coupon.from_day %>から<br>
+              <%= @coupon.to_day %>まで
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table class='table'>
+        <thead>
+          <tr>
+            <th>内容</th>
+            <th colspan="1"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+           <td><%= safe_join(@coupon.content.split("\n"),tag(:br)) %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+   </div>
+  </div>

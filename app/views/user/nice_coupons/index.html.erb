@@ -1,0 +1,39 @@
+<p id="notice"></p>
+<div class="container">
+ <div class="row">
+  <div class ="mx-auto">
+    <h3><i class="fas fa-heart"></i>いいねしたクーポン一覧</h3>
+      <table class='table table-hover table-inverse'>
+        <thead>
+          <tr>
+            <th>使えるお店</th>
+            <th>クーポン名</th>
+            <th>使用期限</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @nice_coupons.each do |nice_coupon| %>
+          <tr>
+            <td>
+              <%= nice_coupon.coupon.shop %>
+            </td>
+            <td>
+              <%= link_to coupon_path(nice_coupon.coupon.id) do %>
+                <%= nice_coupon.coupon.coupon_name %>
+              <% end %>
+            </td>
+            <td>
+              <%= nice_coupon.coupon.from_day %>
+              <%= "から" %><br>
+              <%= nice_coupon.coupon.to_day %>
+              <%= "まで" %>
+            </td>
+          </tr>
+        <% end %>
+        <%= paginate @nice_coupons %>
+        </tbody>
+      </table>
+  </div>
+ </div>
+</div>

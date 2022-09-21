@@ -1,0 +1,49 @@
+<p id="notice"></p>
+<div class="container">
+ <div class="row">
+  <div class ="mx-auto">
+    <h2>ユーザー登録</h2>
+     <% if @user.errors.any? %>
+       <%= @user.errors.count %>件のエラーが発生しました
+       <ul>
+         <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+         <% end %>
+       </ul>
+     <% end %>
+    <%= form_with model:@user, url: user_registration_path do |f| %>
+
+      <div class="field">
+        <%= f.label :ユーザーネーム %><br />
+        <%= f.text_field :name, autofocus: true, autocomplete: "name", size: "30x10" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :メール %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", size: "30x10" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :パスワード %>
+        <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "new-password", size: "30x10" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :パスワード（確認用） %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", size: "30x10" %>
+      </div>
+      <br>
+
+      <div class="actions">
+        <%= f.submit "ユーザー登録", class: "btn btn-success btn-block mb-3" %>
+      </div>
+    <% end %>
+    <%= link_to new_user_session_path, class: "btn btn-primary btn-block mb-3" do %>
+     <%= "ログイン画面へ" %>
+    <% end %>
+  </div>
+ </div>
+</div>

@@ -1,0 +1,85 @@
+<p id="notice"></p>
+<% if @user.is_deleted == true %>
+  <div class="container">
+   <div class="row">
+    <div class="mx-auto" >
+      <h2>このユーザーは退会しています</h2>
+      <br>
+      <%= link_to "ユーザー一覧へ", '/users', class:"btn btn-primary btn-block mb-3" %>
+    </div>
+   </div>
+  </div>
+<% else %>
+  <div class="container px-5 px-sm-0">
+   <div class="row">
+      <div class="col-md-3">
+        <%= flash[:notice] %>
+        <h2>ユーザー情報</h2>
+        <%= image_tag @user.get_profile_image(250,250) %>
+        <table class="table">
+         <tr>
+          <th>ユーザーネーム</th>
+          <th><%= @user.name %></th>
+         </tr>
+        </table>
+        <% if @user == current_user %>
+          <div class="row">
+           <%= link_to "/places/new", class:"btn btn-success btn-block mb-1" do %>
+             <i class="fas fa-map-pin"></i><span>新しく待ち合わせをする</span>
+           <% end %>
+           <%= link_to edit_user_path(@user), class:"btn btn-outline-secondary btn-block mb-1" do %>
+             <i class="fas fa-cog"></i><span>ユーザー情報編集</span>
+           <% end %>
+           <%= link_to "/join_places", class:"btn btn-info btn-block mb-1" do %>
+             <i class="fas fa-handshake"></i><span>参加した待ち合わせ一覧</span>
+           <% end %>
+           <%= link_to  "/nice_coupons", class:"btn btn-primary btn-block mb-5" do %>
+            <i class="fas fa-heart"></i><span>︎いいねしたクーポン一覧</span>
+           <% end %>
+          </div>
+        <% end %>
+      </div>
+      <div class ="col-md-8 offset-md-1">
+        <h3>
+          <%= @user.name %>さんのマイページ
+        </h3>
+          <table class='table table-hover table-inverse'>
+            <thead>
+              <tr>
+                <th>投稿者</th>
+                <th>件名</th>
+                <th>参加人数</th>
+                <th>コメント数</th>
+                <th colspan="4"></th>
+              </tr>
+            </thead>
+  
+            <% @places.each do |place| %>
+              <tr>
+                <td>
+                  <%= link_to user_path(place.user.id) do %>
+                   <%= image_tag @user.get_profile_image(50,50) %><br>
+                   <%= place.user.name %>
+                  <% end %>
+                </td>
+                <td>
+                  <%= link_to place_path(place.id) do %>
+                    <%= place.subject %>
+                  <% end %>
+                </td>
+                <td>
+                  <%= "#{place.join_places.count}人" %>
+                </td>
+                <td>
+                  <%= "#{place.place_comments.count} コメント" %>
+                </td>
+              </tr>
+            <% end %>
+            <%= paginate @places %>
+            </tbody>
+          </table>
+    </div>
+   </div>
+  </div>
+<% end %>
+

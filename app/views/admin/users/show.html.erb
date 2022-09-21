@@ -1,0 +1,74 @@
+<p id="notice"></p>
+<div class="container px-5 px-sm-0">
+ <div class="row">
+  <div class="col-md-3">
+    <h2>ユーザー情報</h2>
+    <%= image_tag @user.get_profile_image(250,250) %>
+    <table class="table">
+    <table class="table">
+     <tr>
+      <th>ユーザーネーム</th>
+      <th><%= @user.name %></th>
+      <th class="2"></th>
+     </tr>
+     <tr>
+      <th>メールアドレス</th>
+      <th><%= @user.email %></th>
+      <th class="2"></th>
+     </tr>
+     <tr>
+       <th>退会ステータス</th>
+       <th>
+         <%= @user.is_deleted ? '退会' : '有効' %>
+       </th>
+       <th class="2"></th>
+     </tr>
+    </table>
+      <div class="row">
+       <%= link_to edit_admin_user_path(@user), class:"btn btn-outline-secondary btn-block mb-3" do %>
+        <% "ユーザー情報編集" %>
+       <% end %>
+      </div>
+  </div>
+  <div class ="col-md-8 offset-md-1">
+    <h3>
+      <%= @user.name %>さんのマイページ
+    </h3>
+      <table class='table table-hover table-inverse'>
+        <thead>
+          <tr>
+            <th>投稿者</th>
+            <th>件名</th>
+            <th>参加人数</th>
+            <th>コメント数</th>
+            <th colspan="4"></th>
+          </tr>
+        </thead>
+
+        <% @places.each do |place| %>
+          <tr>
+            <td>
+              <%= link_to admin_user_path(place.user.id) do %>
+               <%= image_tag @user.get_profile_image(50,50) %><br>
+               <%= place.user.name %>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to admin_place_path(place.id) do %>
+                <%= place.subject %>
+              <% end %>
+            </td>
+            <td>
+              <%= "#{place.join_places.count}人" %>
+            </td>
+            <td>
+              <%= "#{place.place_comments.count} コメント" %>
+            </td>
+          </tr>
+        <% end %>
+        <%= paginate @places %>
+        </tbody>
+      </table>
+  </div>
+ </div>
+</div>

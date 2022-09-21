@@ -1,0 +1,56 @@
+<p id="notice"></p>
+<div class="container">
+ <div class="row">
+  <div class ="mx-auto">
+    <%= flash[:notice] %>
+    <h2>ユーザー情報編集</h2>
+     <% if @user.errors.any? %>
+       <%= @user.errors.count %>件のエラーが発生しました %>
+       <ul>
+         <% @user.errors.full_messages.each do |message| %>
+           <li><%= message %></li>
+         <% end %>
+       </ul>
+     <% end %>
+    <%= form_with model:@user, url: user_path(@user.id), method: :patch do |f| %>
+
+      <div class="field">
+        <%= f.label :"ユーザーネーム" %><br />
+        <%= f.text_field :name, autofocus: true, autocomplete: "name", size: "30x10" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :"Eメール" %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", size: "30x10" %>
+      </div>
+
+      <div class="field">
+        <label for "inputImage">プロフィール画像</label><br />
+        <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %><br />
+      </div>
+
+      <div class="field">
+        <%= f.label :新しいパスワード %><br />
+        <%= "(変更しない場合は現在のパスワードを入力)" %><br />
+        <%= f.password_field :password, autocomplete: "password", size: "30x10" %>
+        <% if @minimum_password_length %>
+          <br />
+          <em><%= @minimum_password_length %> characters minimum</em>
+        <% end %>
+      </div>
+
+      <div class="field">
+        <%= f.label :新しいパスワード（確認用） %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", size: "30x10", class:"mb-3" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "変更保存", class:"btn btn-success btn-block mb-3" %>
+      </div>
+    <% end %>
+
+    <%= link_to "退会画面へ", unsubscribe_path, class:"btn btn-danger btn-block mb-3" %>
+
+  </div>
+ </div>
+</div>

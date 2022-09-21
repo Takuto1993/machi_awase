@@ -2,15 +2,114 @@
 <html>
   <head>
     <title>MachiAwase</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="d-flex flex-column vh-100">
+    <header class ="shadow-sm">
+      <nav class = "navbar navbar-expand-lg navbar-light" style="background-color: #FF8C00;">
+       <div class= "container">
+        <a class="navbar-brand" href="/" >
+          <span class= "text-white">MACHIあわせ</span>
+        </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+         <ul class="navbar-nav ml-auto" >
+          <% if user_signed_in? %>
+            <li class="nav-item">
+              <%= link_to user_path(current_user.id), class: 'nav-link text-light' do %>
+               <%= image_tag current_user.get_profile_image(20,20) %>
+               <%= current_user.name %>さんのマイページ
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to users_path, class: 'nav-link text-light' do %>
+               <i class="fas fa-users"></i><span>ユーザー一覧</span>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to places_path, class: 'nav-link text-light' do %>
+               <i class="fas fa-map"></i><span>待ち合わせ一覧</span>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to coupons_path, class: 'nav-link text-light' do %>
+               <i class="fas fa-ticket-alt"></i><span>クーポン一覧</span>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-light' do %>
+               <i class="fas fa-sign-out-alt"></i><span>ログアウト</span>
+              <% end %>
+            </li>
+          <% elsif admin_signed_in? %>
+            <li class="nav-item">
+              <%= link_to admin_path, class: 'nav-link text-light' do %>
+               <i class="fa fa-exclamation "></i><span>管理者トップ</span>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to admin_users_path, class: 'nav-link text-light' do %>
+               <i class="fas fa-users"></i><span>ユーザー一覧</span>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to admin_places_path, class: 'nav-link text-light' do %>
+               <i class="fas fa-map"></i><span>待ち合わせ一覧</span>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to admin_coupons_path, class: 'nav-link text-light' do %>
+               <i class="fas fa-ticket-alt"></i><span>クーポン一覧</span>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-light' do %>
+               <i class="fas fa-sign-out-alt"></i><span>管理者ログアウト</span>
+              <% end %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to new_user_registration_path, class: 'nav-link text-light' do %>
+               <i class="fas fa-user-plus"></i><span>新規ユーザー登録</span>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to new_user_session_path, class: 'nav-link text-light' do %>
+               <i class="fas fa-sign-in-alt"></i><span>ログイン</span>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to user_guest_sign_in_path, method: :post, class: 'nav-link text-light' do %>
+               <i class="fas fa-sign-in-alt"></i><span>ゲストログイン</span>
+              <% end %>
+            </li>
+          <% end %>
+         </ul>
+        </div>
+       </div>
+      </nav>
+    </header>
+    <main class="mb-auto">
     <%= yield %>
+    </main>
+    <footer class="text-white pt-5 pb-4" style="background-color: #FF8C00;">
+      <div class="container mt-3">
+          <div class="row">
+            <div class="mx-auto">
+              <p>Machi Awase</p>
+              <% #管理者ログインは仮でサイト下部に配置しています %>
+              <%= link_to "管理者ログイン", admin_session_path %>
+            </div>
+          </div>
+      </div>
+    </footer>
   </body>
 </html>

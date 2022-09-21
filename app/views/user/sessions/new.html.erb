@@ -1,0 +1,42 @@
+<p id="notice"></p>
+<div class="container">
+ <div class="row">
+  <div class ="mx-auto">
+    <%= flash[:alert] %>
+    <h2>ユーザーログイン</h2>
+     <% if @user.errors.any? %>
+       <%= @user.errors.count %>件のエラーが発生しました 
+       <ul>
+         <% @user.errors.full_messages.each do |message| %>
+           <li><%= message %></li>
+         <% end %>
+       </ul>
+     <% end %>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", size: "30x10" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :"パスワード" %><br />
+        <%= f.password_field :password, autocomplete: "current-password", size: "30x10" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="field">
+          <%= f.check_box :remember_me %>
+          <%= f.label :"次回自動ログイン" %>
+        </div>
+      <% end %>
+
+      <div class="actions">
+        <%= f.submit "ログイン", class: "btn btn-primary btn-block mb-3" %>
+      </div>
+    <% end %>
+    <%= link_to new_user_registration_path, class: "btn btn-success btn-block mb-3" do %>
+     <%= "新規会員登録へ" %>
+    <% end %>
+  </div>
+ </div>
+</div>

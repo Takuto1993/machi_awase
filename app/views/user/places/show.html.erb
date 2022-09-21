@@ -1,0 +1,254 @@
+<p id="notice"></p>
+<% if @place.user.is_deleted == true %>
+<div class="container">
+ <div class="row">
+  <div class="mx-auto" >
+   <h2>待ち合わせ投稿主は退会しています。</h2>
+   <br>
+   <%= link_to "待ち合わせ一覧へ", '/places', class:"btn btn-primary btn-block mb-3" %>
+  </div>
+ </div>
+</div>
+<% else %>
+   <div class="container px-5 px-sm-0">
+    <div class="row">
+     <div class ="col-md-6">
+      <div>
+       <h4>
+        待ち合わせ詳細
+        <% if @place.user == current_user %>
+         <%= link_to "待ち合わせ編集", edit_place_path(@place.id), class: "btn btn-success" %>
+        <% end %>
+       </h4>
+       <div>
+        <table class ='table' >
+         <thead>
+          <tr>
+           <th>件名</th>
+           <th><%= @place.subject %></th>
+           <th colspan="2"></th>
+          </tr>
+          <tr>
+           <th>投稿ユーザー</th>
+           <th>
+            <%= link_to user_path(@place.user.id) do %>
+              <%= image_tag @place.user.get_profile_image(30,30) %>
+              <%= @place.user.name %>
+            <% end %>
+           </th>
+           <th colspan="2"></th>
+          </tr>
+         </thead>
+        </table>
+        <table class="table">
+         <thead>
+          <tr>
+           <th>本文</th>
+           <th></th>
+           <th colspan ="2"></th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td><%= safe_join(@place.body.split("\n"),tag(:br)) %></td>
+           <td colspan="1"></td>
+          </tr>
+         </tbody>
+        </table>
+         <table class="table">
+          <tbody>
+           <tr>
+            <td>待ち合わせ場所</td>
+            <td><%= @place.address %></td>
+            <td colspan="2"></td>
+           </tr>
+           <tr>
+            <td>待ち合わせ目印</td>
+            <td><%= @place.spot %></td>
+            <tdcolspan="2"></td>
+           </tr>
+           <tr>
+            <td>待ち合わせ日時</td>
+            <td><%= @place.place_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+            <td colspan="2"></td>
+           </tr>
+          </tbody>
+         </table>
+
+          <h4>Google Map</h4>
+          <% if @place.latitude == nil %>
+          <% else %>
+           緯度:<%= @place.latitude %>
+          <% end %>
+          <% if @place.longitude == nil %>
+          <% else %>
+           経度:<%= @place.longitude %>
+          <% end %>
+          <% #googlemapを表示 %>
+          <% if @place.latitude == nil %>
+           <%= "位置情報を所得できませんでした。" %>
+          <% elsif @place.longitude == nil %>
+           <%= "位置情報を所得できませんでした。" %>
+          <% else %>
+           <div id="map"></div>
+
+           <style>
+            #map{
+              height: 400px;
+            }
+           </style>
+
+           <script>
+            function initMap(){
+
+             var mark = {lat: <%= @place.latitude %>, lng: <%= @place.longitude %>};
+             var map = new google.maps.Map(document.getElementById('map'), {
+                       zoom: 15,
+                       center: mark
+                       });
+             var transitLayer = new google.maps.TransitLayer();
+             transitLayer.setMap(map);
+
+             var contentString = '住所:<%= @place.address %>';
+             var infowindow = new google.maps.InfoWindow({
+              content: contentString
+             });
+
+             <% #MAP上の指定場所をピンで表示 %>
+             var marker = new google.maps.Marker({
+                       position: mark,
+                       map: map,
+                       title: contentString
+                       });
+
+             marker,addListener('click', function() {
+              infowindow.open(map, marker);
+             });
+            }
+           </script>
+           <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY'] %>&callback=initMap">
+           </script>
+          <% end %>
+          <p id="notice"></p>
+      </div>
+     </div>
+     </div>
+     <div class ="col-md-5 offset-md-1">
+       <% if user_signed_in? %>
+         <% #if文はログインユーザーのみ参加、取り消しできるようにする placeモデル参照 %>
+         <% if @place.join_placed_by?(current_user) %>
+          <h4>参加者</h4>
+          <%= link_to place_join_places_path(@place), method: :delete, class: "btn btn-danger mb-3" do %>
+           <i class="fas fa-handshake"></i><span>参加を取り消す</span>
+          <% end %>
+           <table class='table table-hover table-inverse'>
+             <thead>
+               <tr>
+                 <th><i class="fas fa-handshake"></i>参加人数:<%= @place.join_places.count %>人</th>
+                 <th>参加者</th>
+                 <th colspan="2"></th>
+               </tr>
+             </thead>
+             <% @place.join_places.each do |join_place| %>
+              <tbody>
+               <tr>
+                <th><%= image_tag join_place.user.get_profile_image(50,50) %><br></th>
+                <th><%= link_to join_place.user.name, user_path(join_place.user.id) %></th>
+               </tr>
+              </tbody>
+             <% end %>
+            </table>
+         <% else %>
+           <h4>参加者</h4>
+           <%= link_to place_join_places_path(@place), method: :post, class: "btn btn-primary mb-3" do %>
+            <i class="far fa-handshake"></i><span>参加する</span>
+           <% end %>
+            <table class='table table-hover table-inverse'>
+              <thead>
+                <tr>
+                  <th><i class="fas fa-handshake"></i>参加人数:<%= @place.join_places.count %>人</th>
+                  <th>参加者</th>
+                  <th colspan="2"></th>
+                </tr>
+              </thead>
+              <% @place.join_places.each do |join_place| %>
+               <tbody>
+                <tr>
+                 <th><%= image_tag join_place.user.get_profile_image(50,50) %><br></th>
+                 <th><%= link_to join_place.user.name, user_path(join_place.user.id) %></th>
+                </tr>
+               </tbody>
+              <% end %>
+             </table>
+         <% end %>
+       <% else %>
+         <h4>参加者</h4>
+           <table class='table table-hover table-inverse'>
+            <thead>
+              <tr>
+                <th><i class="fas fa-handshake"></i>参加人数:<%= @place.join_places.count %>人</th>
+                <th>参加者</th>
+                <th colspan="2"></th>
+              </tr>
+            </thead>
+            <% @place.join_places.each do |join_place| %>
+             <tbody>
+              <tr>
+               <th><%= image_tag join_place.user.get_profile_image(50,50) %><br></th>
+               <th><%= link_to join_place.user.name, user_path(join_place.user.id) %></th>
+              </tr>
+             </tbody>
+            <% end %>
+           </table>
+       <% end %>
+
+         <div>
+           <h4>コメント一覧</h4>
+           <p>コメント件数:<%= @place.place_comments.count %></p>
+           <table class='table table-hover table-inverse'>
+            <% @place.place_comments.each do |place_comment| %>
+            <thead>
+              <tr>
+                <th><%= place_comment.id %></th>
+                <th>
+                 <%= link_to user_path(place_comment.user.id) do %>
+                  <%= image_tag place_comment.user.get_profile_image(30,30) %>
+                  <%= place_comment.user.name %>
+                 <% end %>
+                </th>
+                <th><%= place_comment.created_at.strftime('%Y/%m/%d/ %H:%M:%S') %></th>
+                <th colspan="3"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+
+                </td>
+                <td>
+                 <%= safe_join(place_comment.comment.split("\n"),tag(:br)) %>
+                </td>
+                <td>
+                  <% if place_comment.user == current_user %>
+                   <%= link_to "削除", place_place_comment_path(place_comment.place, place_comment), method: :delete, "data-confirm"  => "コメントを削除しますか？", class:"btn btn-sm btn-danger"  %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+           </table>
+           <% if user_signed_in? %>
+            <h4>コメント投稿</h4>
+            <div>
+              <%= form_with model: [@place, @place_comment] do |f| %>
+               <%= f.text_area :comment, rows: '5', placeholder: "コメントはこちら", size: "50x10" %>
+               <%= f.submit "投稿", class:"btn btn-success mb-3" %>
+              <% end %>
+            </div>
+           <% end %>
+         </div>
+     </div>
+    </div>
+    </div>
+   </div>
+<% end %>

@@ -1,0 +1,30 @@
+<p id="notice"></p>
+ <div class="container">
+  <div class="row">
+   <div class ="mx-auto">
+     <h3>クーポン新規作成</h3>
+     <% if @coupon.errors.any? %>
+       <%= @coupon.errors.count %>件のエラーが発生しました
+       <ul>
+         <% @coupon.errors.full_messages.each do |message| %>
+           <li><%= message %></li>
+         <% end %>
+       </ul>
+     <% end %>
+     <%= form_with model: @coupon, url: '/admin/coupons' do |f| %>
+      <%= "使えるお店(30字まで)" %><br>
+       <%= f.text_field :shop, size: "60x10" %><br>
+      <%= "クーポン名(30字まで)" %><br>
+       <%= f.text_field :coupon_name, size: "60x10" %><br>
+       <h5>使用期限</h5>
+       <%= "使用可能日" %>
+       <%= f.date_field :from_day, use_month_numbers: true, class: 'form-control date-picker' %>
+       <%= "期限終了日" %>
+       <%= f.date_field :to_day, use_month_numbers: true, class: 'form-control date-picker' %>
+      <%= "内容" %><br>
+       <%= f.text_area :content, size: "60x10" %><br><br>
+      <%= f.submit 'クーポン新規作成', class:"btn btn-success btn-block mb-3" %>
+    <% end %>
+   </div>
+  </div>
+ </div>

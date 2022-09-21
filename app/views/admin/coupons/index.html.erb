@@ -1,0 +1,51 @@
+<p id="notice"></p>
+<div class="container">
+ <div class="row">
+  <div class ="mx-auto">
+    <h3>クーポン一覧</h3>
+    
+    <%= link_to "/admin/coupons/new", class:"btn btn-success mb-3" do %>
+     <%= "クーポン新規作成" %>
+    <% end %>
+
+    <% #検索フォーム %>
+    <%= form_tag({controller:"coupons",action:"index"}, method: :get) do %>
+     <%= text_field_tag :search %>
+     <%= submit_tag '検索する' %>
+    <% end %>
+
+      <table class='table table-hover table-inverse'>
+        <thead>
+          <tr>
+            <th>使えるお店</th>
+            <th>クーポン名</th>
+            <th>使用期限</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @coupons.each do |coupon| %>
+          <tr>
+            <td>
+              <%= coupon.shop %>
+            </td>
+            <td>
+              <%= link_to admin_coupon_path(coupon.id) do %>
+                <%= coupon.coupon_name %>
+              <% end %>
+            </td>
+            <td>
+              <%= coupon.from_day %>
+              <%= "から" %><br>
+              <%= coupon.to_day %>
+              <%= "まで" %>
+            </td>
+          </tr>
+        <% end %>
+        <%= paginate @coupons %>
+        </tbody>
+      </table>
+  </div>
+ </div>
+</div>
+

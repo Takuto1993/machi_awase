@@ -1,0 +1,32 @@
+<p id="notice"></p>
+ <div class="container">
+  <div class="row">
+   <div class ="mx-auto">  
+    <h3>待ち合わせ編集</h3>
+     <% if @place.errors.any? %>
+       <%= @place.errors.count %>件のエラーが発生しました
+       <ul>
+         <% @place.errors.full_messages.each do |message| %>
+           <li><%= message %></li>
+         <% end %>
+       </ul>
+     <% end %>
+      <%= form_with model: @place, url: admin_place_path(@place.id) do |f| %>
+        <h4>件名</h4>
+         <%= f.text_field :subject, size: "60x10" %>
+        <h4>本文</h4>
+         <%= f.text_area :body, size: "80x10" %>
+        <h4>待ち合わせ場所（住所、お店の名前など）</h4>
+         <%= f.text_field :address, size: "60x10" %>
+    
+        <h4>待ち合わせ目印（出入り口、ベンチ前など）</h4>
+         <%= f.text_field :spot, size: "60x10" %>
+        <h4>待ち合わせ日時</h4>
+         <%= f.datetime_field :place_at, use_month_numbers: true, class: 'form-control' %>
+         <br>
+        <%= f.submit '変更保存', class: "btn btn-success mb-3" %>
+      <% end %>
+      <%= link_to "削除", admin_place_path(@place), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger mb-3" %>
+   </div>
+  </div>
+ </div>
