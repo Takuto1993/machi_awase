@@ -30,7 +30,8 @@
 
 ## 設計書
 
-
+## 実装機能リストのURL
+https://docs.google.com/spreadsheets/d/1b3bCtay2DQlPb4nRGDhxaVza3rLRDQgO-rtdSEhpBsQ/edit?usp=sharing
 
 ## 開発環境
 - OS：Linux(CentOS)
