@@ -14,22 +14,9 @@
         <%= f.label :"Eメール" %><br />
         <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
       </div>
-      
-      <div class="field">
-        <%= f.label :新しいパスワード %><br />
-        <%= "(変更しない場合は空欄のまま)" %><br />
-        <%= f.password_field :password, autocomplete: "password", size: "30x10" %>
-        <% if @minimum_password_length %>
-          <br />
-          <em><%= @minimum_password_length %> characters minimum</em>
-        <% end %>
-      </div>
-      
-      <div class="field">
-        <%= f.label :新しいパスワード（確認用） %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", size: "30x10", class:"mb-3" %>
-      </div>
-        <% #誤って退会させたり有効にしたりを防ぐため"data-confirm"でワンクッションを挟む %>
+
+      <br>
+
         <% if @user.is_deleted? %>
           <%= link_to admin_user_toggle_path(@user.id), method: :patch, "data-confirm" => "有効にさせますか？" do %>
             <span class="btn btn-info btn-block mb-3">有効にする</span>
